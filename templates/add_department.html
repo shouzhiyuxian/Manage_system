@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实习生信息管理</title>
+    <!-- CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/right.css">
+    <link rel="stylesheet" href="/static/css/my_information.css">
+    <link rel="stylesheet" href="/static/css/stu_info.css">
+    <link rel="stylesheet" href="/static/css/add_stu_info.css">
+    <link rel="stylesheet" href="/static/css/new_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="main-left">
+    <div class="sidebar-wrapper">
+        <div class="sidebar-menu">
+            {% if isadmin == '1' %}
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/province_map" class="menu-link">
+                        <i class="fas fa-house"></i>
+                        <span class="menu-text">智能看板</span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            {% if isadmin == '1' %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习信息管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/stu_info"
+                                                                                          style="color: #ffffffbd;">实习生信息</a>
+                        </div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/work_info"
+                                                                                          style="color: #ffffffbd;">实习单位信息</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习过程管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/feedback_list"
+                                                                                          style="color: #ffffffbd;">悄悄话</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/signin_record"
+                                                                                          style="color: #ffffffbd;">签到记录</a>
+                        </div>
+                        {% endif %}
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/admin_reports" style="color: #ffffffbd;">实习周报审批</a>
+                        </div>
+                        {% else %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/report" style="color: #ffffffbd;">实习周报</a>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree"
+                                style="background-color: #2a3042; color: #ffffffbd;">
+                            优秀实习生管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingThree"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_practicer"
+                                                                                          style="color: #ffffffbd;">优秀实习生申请</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a
+                                href="/excellent_stu_application" style="color: #ffffffbd;">优秀实习生审批</a></div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_stu_info"
+                                                                                          style="color: #ffffffbd;">优秀实习生信息</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/my_information" class="menu-link">
+                        <i class="fas fa-user-cog"></i>
+                        <span class="menu-text">个人信息</span>
+                    </a>
+                </div>
+                {% if isadmin == '1' %}
+                <div class="menu-item">
+                    <a href="/college_manage" class="menu-link">
+                        <i class="fas fa-university"></i>
+                        <span class="menu-text">学院管理</span>
+                    </a>
+                </div>
+                {% endif %}
+                <div class="menu-item">
+                    <a href="/sign_in_calendar" class="menu-link highlight">
+                        <i class="fas fa-map-pin"></i>
+                        <span class="menu-text">立即签到</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main right" style="position: absolute; left: 255px">
+    <div class="logo">
+        <img class="logo" src="../static/img/logo.png" alt="logo">
+    </div>
+    <div class="header">
+        <span>实习生信息管理</span>
+    </div>
+    <div class="breadcrumb">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li>当前位置:</li>
+                <li class="breadcrumb-item"><a href="/index"> 首页</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><a href="/college_manage">学院管理</a></li>
+                <li class="breadcrumb-item active" aria-current="page">新增</li>
+            </ol>
+        </nav>
+
+
+    </div>
+    <div class="content">
+        <form id="form" method="post">
+            <div class="filter">
+            <table>
+                <div style="margin-top: 10px">
+                    新增学院名称<input class="form-control" type="text" placeholder="新增学院名称" aria-label="default input example" name="department_name" style="width: auto; margin-top: 10px">
+                </div>
+            </table>
+                <button class="btn btn-outline-secondary fbtn" type="submit" id="button-addon2" style="margin-top: 10px">保存提交</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/static/js/vue-2.5.16.js"></script>
+<script src="/static/js/nav.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery and JavaScript Bundle with Popper -->
+
+</body>
+</html>

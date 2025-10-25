@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户登录页面</title>
+    <link rel="stylesheet" href="/static/css/ulogin.css">
+    <script src="/static/js/jquery-3.6.0.min.js"></script>
+
+</head>
+<body>
+<div id="app">
+    <div class="container">
+        <form method="post">
+            {{ form.csrf_token }}
+            <label for="username"><b>用户名</b></label>
+            <input type="text" name="username" id="username"
+            placeholder="请输入用户名">
+
+            <label for="password"><b>密码</b></label>
+            <input type="password" name="password" id="password"
+            placeholder="请输入密码">
+
+            <button type="submit">登录</button>
+            <span><a href="/register">没有账号?立即注册</a></span>
+        </form>
+    </div>
+</div>
+</body>
+
+</html>

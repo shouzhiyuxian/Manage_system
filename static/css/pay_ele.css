@@ -1,0 +1,29 @@
+.payment-options {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.payment-btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    padding: 10px 24px;
+    border-radius: 4px;
+}
+
+.payment-btn:hover {
+    background-color: #45a049;
+}
+.btn-secondary::before{
+    content: none;
+}
+.btn-secondary{
+    margin-right: 10px;
+}

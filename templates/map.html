@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+  <title>HELLO，AMAP!</title>
+  <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css" />
+  <link rel="stylesheet" href="/static/css/map.css">
+    <style>
+    html,
+    body,
+    #container {
+      height: 87%;
+      width: 87%;
+    }
+
+    .amap-icon img,
+    .amap-marker-content img {
+      width: 25px;
+      height: 34px;
+    }
+
+    .cus_info_window {
+      background-color: #fff;
+      padding: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="container">
+  </div>
+{#  <div class="map" style="height: 800px; width: 800px">#}
+{#      <div class="map1"></div>#}
+{#      <div class="map2"></div>#}
+{#  </div>#}
+  <script type="text/javascript">
+  window._AMapSecurityConfig = {
+    securityJsCode: "9e512a832840f3b4461a127285f3a5f7",
+  };
+</script>
+  <script type="text/javascript" src="https://webapi.amap.com/maps?v=2.0&key=8fe1829122d02f76255a391eb1370f8b"></script>
+  <script type="text/javascript">
+    // 创建地图实例
+    var map = new AMap.Map("container", {
+      zoom: 13,
+      resizeEnable: true
+    });
+
+    // 创建点覆盖物
+    var marker = new AMap.Marker({
+      position: new AMap.LngLat(116.39, 39.92),
+      icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
+      offset: new AMap.Pixel(-13, -30)
+    });
+    map.add(marker);
+
+    // 创建信息窗体
+    var infoWindow = new AMap.InfoWindow({
+      isCustom: true,  // 使用自定义窗体
+      content: '<div class="cus_info_window">HELLO,AMAP!</div>', // 信息窗体的内容可以是任意 html 片段
+      offset: new AMap.Pixel(16, -45)
+    });
+    var onMarkerClick = function (e) {
+      infoWindow.open(map, e.target.getPosition()); // 打开信息窗体
+      // e.target 就是被点击的 Marker
+    }
+
+    marker.on('click', onMarkerClick); // 绑定 click 事件
+
+    const lineArr = [
+      [116.368904, 39.913423],
+      [116.382122, 39.901176],
+      [116.387271, 39.912501],
+      [116.398258, 39.904600]
+    ];
+    var polyline = new AMap.Polyline({
+      path: lineArr,          // 设置线覆盖物路径
+      strokeColor: "#3366FF", // 线颜色
+      strokeWeight: 5,        // 线宽
+      strokeStyle: "solid",   // 线样式
+    });
+    map.add(polyline);
+  </script>
+</body>
+
+</html>

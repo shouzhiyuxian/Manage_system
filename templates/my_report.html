@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的实习周报</title>
+    <!-- CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/right.css">
+    <link rel="stylesheet" href="/static/css/my_information.css">
+    <link rel="stylesheet" href="/static/css/stu_info.css">
+    <link rel="stylesheet" href="/static/css/new_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!--    <script src="/static/js/vue-2.5.16.js"></script>-->
+</head>
+<style>
+    .send::before {
+        content: none;
+    }
+
+    .send {
+        border: none;
+        color: white;
+        background-color: #0d6efd;
+    }
+
+    .send:hover {
+        background-color: #0d6efd;
+        color: white;
+    }
+</style>
+<body>
+<div class="main-left">
+    <div class="sidebar-wrapper">
+        <div class="sidebar-menu">
+            {% if isadmin == '1' %}
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/province_map" class="menu-link">
+                        <i class="fas fa-house"></i>
+                        <span class="menu-text">智能看板</span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            {% if isadmin == '1' %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习信息管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/stu_info"
+                                                                                          style="color: #ffffffbd;">实习生信息</a>
+                        </div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/work_info"
+                                                                                          style="color: #ffffffbd;">实习单位信息</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习过程管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/feedback_list"
+                                                                                          style="color: #ffffffbd;">悄悄话</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/signin_record"
+                                                                                          style="color: #ffffffbd;">签到记录</a>
+                        </div>
+                        {% endif %}
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/admin_reports" style="color: #ffffffbd;">实习周报审批</a>
+                        </div>
+                        {% else %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/report" style="color: #ffffffbd;">实习周报</a>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree"
+                                style="background-color: #2a3042; color: #ffffffbd;">
+                            优秀实习生管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingThree"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_practicer"
+                                                                                          style="color: #ffffffbd;">优秀实习生申请</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a
+                                href="/excellent_stu_application" style="color: #ffffffbd;">优秀实习生审批</a></div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_stu_info"
+                                                                                          style="color: #ffffffbd;">优秀实习生信息</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/my_information" class="menu-link">
+                        <i class="fas fa-user-cog"></i>
+                        <span class="menu-text">个人信息</span>
+                    </a>
+                </div>
+                {% if isadmin == '1' %}
+                <div class="menu-item">
+                    <a href="/college_manage" class="menu-link">
+                        <i class="fas fa-university"></i>
+                        <span class="menu-text">学院管理</span>
+                    </a>
+                </div>
+                {% endif %}
+                <div class="menu-item">
+                    <a href="/sign_in_calendar" class="menu-link highlight">
+                        <i class="fas fa-map-pin"></i>
+                        <span class="menu-text">立即签到</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main right  ps-4 pe-4" style="margin-left: 13%">
+    <div class="logo text-center mb-4" style="top: 0.5em">
+        <img src="../static/img/logo.png" alt="logo" class="img-fluid" style="max-height: 88px">
+    </div>
+    <div class="header">
+        <span>实习生管理系统</span>
+    </div>
+    <nav class="mb-4" style="margin-top: 2%">
+        <div class="d-flex justify-content-between align-items-center">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/index" class="text-decoration-none">首页</a></li>
+                <li class="breadcrumb-item active"><a href="/report" class="text-decoration-none">实习周报</a></li>
+                <li class="breadcrumb-item active">我的实习周报</li>
+            </ol>
+            <div class="user-status d-flex align-items-center flex-nowrap" style="padding-right: 24px;">
+                <span class="text-muted text-nowrap me-2">欢迎，{{ user_name }}！</span>
+                <a href="/login" class="btn btn-sm btn-outline-danger flex-shrink-0">退出系统</a>
+            </div>
+        </div>
+    </nav>
+    <!-- 添加form标签包裹整个表单内容，并设置文件上传编码 -->
+
+    <div class="container mt-4" id="app">
+
+        <div class="content-section">
+            <h3>本周主要内容</h3>
+            <pre>{{ report.main_content }}</pre>  <!-- 使用pre保留格式 -->
+        </div>
+
+        <div class="summary-section">
+            <h3>周度总结</h3>
+            <pre>{{ report.summary }}</pre>
+        </div>
+
+        <!-- 每日记录表格 -->
+        <h3>每日工作记录</h3>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+            <tr>
+                <th style="width:15%">日期</th>
+                <th style="width:15%">工作时长</th>
+                <th style="width:20%">工作地点</th>
+                <th>工作内容</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for daily in report.daily_records %}
+            <tr>
+                <td>第 {{ daily.day_number }} 天</td>
+                <td>{{ daily.work_time }} 小时</td>
+                <td>{{ daily.location }}</td>
+                <td>
+                    <pre class="daily-content">{{ daily.content }}</pre>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- 附件下载 -->
+       {% if report.attachment_path %}
+            <div class="attachment-box mt-3">
+                <h5>附件信息：</h5>
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-file-earmark-arrow-down fs-4 me-2"></i>
+                    <div>
+                        <div>
+                            <a href="{{ url_for('sdownload_attachment', filename=report.attachment_path) }}"
+                               class="text-decoration-none">
+                                {{ report.attachment_path }}
+                            </a>
+                        </div>
+                        <small class="text-muted">
+                            文件类型: {{ report.attachment_path.split('.')[-1]|upper }}
+                        </small>
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+
+
+        <!-- 教师反馈（管理员可编辑） -->
+        {% if isadmin == '1' %}
+        <div class="feedback-section mt-5">
+            <h3>教师反馈</h3>
+            <form method="POST" >
+                <textarea name="feedback" class="form-control" rows="3">{{ report.teacher_feedback }}</textarea>
+                <button type="submit" class="btn btn-primary mt-2">更新反馈</button>
+            </form>
+        </div>
+        {% else %}
+        <div class="feedback-section mt-5">
+            <h3>教师反馈</h3>
+            <div class="alert alert-info">{{ report.teacher_feedback or '暂未收到反馈' }}</div>
+        </div>
+        {% endif %}
+
+        <!-- 返回导航 -->
+        <hr>
+        <div class="navigation-buttons">
+            {% if isadmin == '1' %}
+            <a href="{{ url_for('admin_reports') }}" class="btn btn-light">返回管理列表</a>
+            {% else %}
+            <a href="{{ url_for('my_weekly_reports') }}" class="btn btn-light">返回我的周报</a>
+            {% endif %}
+        </div>
+
+    </div>
+</div>
+
+<script src="/static/js/vue-2.5.16.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Vue({
+            el: '#app',  // 对应容器id
+            delimiters: ['[[', ']]'],
+            data: {
+                weekDays: ['星期一', '星期二', '星期三', '星期四', '星期五']
+            }
+        })
+    })
+</script>
+</body>
+
+</html>

@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的信息</title>
+    <!-- CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/right.css">
+    <link rel="stylesheet" href="/static/css/my_information.css">
+    <link rel="stylesheet" href="/static/css/new_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="main-left">
+    <div class="sidebar-wrapper">
+        <div class="sidebar-menu">
+            {% if isadmin == '1' %}
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/province_map" class="menu-link">
+                        <i class="fas fa-house"></i>
+                        <span class="menu-text">智能看板</span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            {% if isadmin == '1' %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习信息管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/stu_info"
+                                                                                          style="color: #ffffffbd;">实习生信息</a>
+                        </div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/work_info"
+                                                                                          style="color: #ffffffbd;">实习单位信息</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习过程管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/feedback_list"
+                                                                                          style="color: #ffffffbd;">悄悄话</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/signin_record"
+                                                                                          style="color: #ffffffbd;">签到记录</a>
+                        </div>
+                        {% endif %}
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/admin_reports" style="color: #ffffffbd;">实习周报审批</a>
+                        </div>
+                        {% else %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/report" style="color: #ffffffbd;">实习周报</a>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree"
+                                style="background-color: #2a3042; color: #ffffffbd;">
+                            优秀实习生管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingThree"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_practicer"
+                                                                                          style="color: #ffffffbd;">优秀实习生申请</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a
+                                href="/excellent_stu_application" style="color: #ffffffbd;">优秀实习生审批</a></div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_stu_info"
+                                                                                          style="color: #ffffffbd;">优秀实习生信息</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/my_information" class="menu-link">
+                        <i class="fas fa-user-cog"></i>
+                        <span class="menu-text">个人信息</span>
+                    </a>
+                </div>
+                {% if isadmin == '1' %}
+                <div class="menu-item">
+                    <a href="/college_manage" class="menu-link">
+                        <i class="fas fa-university"></i>
+                        <span class="menu-text">学院管理</span>
+                    </a>
+                </div>
+                {% endif %}
+                {% if isadmin == '0' %}
+                     <div class="menu-item">
+                        <a href="/report" class="menu-link">
+                            <i class="fas fa-map-pin"></i>
+                            <span class="menu-text">实习周报</span>
+                        </a>
+                    </div>
+                {% endif %}
+                <div class="menu-item">
+                    <a href="/sign_in_calendar" class="menu-link highlight">
+                        <i class="fas fa-map-pin"></i>
+                        <span class="menu-text">立即签到</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main right  ps-4 pe-4" style="margin-left: 13%" id="app">
+    <div class="logo text-center mb-4" style="top: 0.5em">
+        <img src="../static/img/logo.png" alt="logo" class="img-fluid" style="max-height: 88px">
+    </div>
+    <div class="header">
+        <span>实习生管理系统</span>
+    </div>
+    <nav class="mb-4" style="margin-top: 2%">
+        <div class="d-flex justify-content-between align-items-center">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/index" class="text-decoration-none">首页</a></li>
+                <li class="breadcrumb-item active">优秀实习生申请</li>
+            </ol>
+            <div class="user-status d-flex align-items-center flex-nowrap" style="padding-right: 24px;">
+                <span class="text-muted text-nowrap me-2">欢迎，{{ user_name }}！</span>
+                <a href="/login" class="btn btn-sm btn-outline-danger flex-shrink-0">退出系统</a>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <form id="form" method="post"  enctype="multipart/form-data">
+            <p>姓名：{{ user.name.first().name }} </p>
+            <p>年级: {{ user.name.first().grade }} </p>
+            <p>学院: {{ user.name.first().department_name }} </p>
+            <p>专业: {{ user.name.first().major_name }} </p>
+            <p>班级: {{ user.name.first().class_id }}班 </p>
+            <p>实习单位: {{ work_name }} </p>
+            <p>实习地区: {{ work_position }} </p>
+            <p>性别: {{ user.sex }} </p>
+            <div class="card shadow mb-4" style="position: absolute; right: 0; top: 20%;height: 23em; width: 30%;" >
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">实习画像</h5>
+                </div>
+                <div class="card-body">
+                    <canvas id="radarChart" style="max-height: 400px;"></canvas>
+                </div>
+            </div>
+            <p>
+                <div class="mb-3">
+                  <label for="exampleFormControlTextarea1" class="form-label">申请原因（列举实习成果）</label>
+                  <textarea class="form-control reason" id="exampleFormControlTextarea1" rows="3" name="reason"></textarea>
+                </div>
+            </p>
+            指导老师<select class="form-select" aria-label="Default select example" name="mentor">
+                    {% for mentor in mentors %}
+                        <option  id="mentor" value="{{ mentor.name.first().name }}" >{{ mentor.name.first().name }}</option>
+                    {% endfor %}
+                </select>
+             <div class="mb-3">
+                <label for="formFile" class="form-label">实习报告/成果附件</label>
+                <input class="form-control" type="file" id="formFile" name="file">
+            </div>
+            <button type="submit" class="button-primary">提交申请</button>
+        </form>
+    </div>
+    <div class="toast-mask" id="toastMask"></div>
+    <div id="toast" class="toast">
+        <div class="toast-body" id="toast-message"></div>
+        <button type="button" class="btn-close" onclick="hideToast()">×</button>
+    </div>
+</div>
+<style>
+.toast {
+    position: fixed;
+    top: 50%;
+    right: 50%;
+    min-width: 300px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    z-index: 9999;
+    transform: translateX(120%);
+    transition: transform 0.3s ease;
+}
+.toast-mask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 9998;
+    display: none;
+}
+
+.toast.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+.toast-header {
+    padding: 12px 16px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.toast-title {
+    font-weight: 600;
+    color: #333;
+}
+.btn-close {
+    position: absolute;
+    right: 12px;
+    top: 12px;
+}
+
+.toast-body {
+    padding: 16px;
+    color: #666;
+}
+
+.toast.success .toast-header {
+    background: #d4edda;
+    border-color: #c3e6cb;
+}
+.toast.error .toast-header {
+    background: #f8d7da;
+    border-color: #f5c6cb;
+}
+.toast.warning .toast-header {
+    background: #fff3cd;
+    border-color: #ffeeba;
+}
+.toast-body {
+    text-align: center;
+    padding: 24px;
+    font-size: 16px;
+}
+</style>
+</div>
+</body>
+</html>
+<script src="/static/js/jquery-3.6.0.min.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/vue-2.5.16.js"></script>
+<script src="/static/js/chart.js"></script>
+<script>
+    // 显示弹窗的函数
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    const mask = document.getElementById('toastMask');
+
+    // 设置内容
+    document.getElementById('toast-message').textContent = message;
+
+    // 移除旧样式
+    toast.className = 'toast';
+
+    // 添加新样式
+    toast.classList.add('show', type);
+    mask.style.display = 'block';
+
+    // 自动隐藏
+    setTimeout(hideToast, 3000);
+}
+
+
+// 隐藏弹窗
+function hideToast() {
+    const toast = document.getElementById('toast');
+    const mask = document.getElementById('toastMask');
+    toast.classList.remove('show');
+    mask.style.display = 'none';
+}
+
+document.addEventListener('DOMContentLoaded', function() { // 确保DOM加载完成
+    document.getElementById('form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const submitBtn = e.target.querySelector('button[type="submit"]');
+
+        try {
+            submitBtn.disabled = true;
+            submitBtn.textContent = '提交中...';
+
+            const response = await fetch('/excellent_practicer', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json(); // 确保响应为JSON
+
+            if (response.ok) {
+                const toastType = result.code === 200 ? 'success' : 'error';
+                showToast(result.msg, toastType);
+
+                if (toastType === 'success') {
+                    setTimeout(() => {
+                        window.location.href = '/index';
+                    }, 1500);
+                }
+            } else {
+                showToast(result.error || '请求失败', 'error');
+            }
+        } catch (error) {
+            showToast('网络错误，请检查连接', 'error');
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.textContent = '提交申请';
+        }
+    });
+});
+</script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        delimiters: ['[[', ']]'],
+        data:{
+            dimensions: [
+                    { name: '专业技能', key: 'skill' },
+                    { name: '工作态度', key: 'attitude' },
+                    { name: '团队协作', key: 'teamwork' },
+                    { name: '任务完成', key: 'task' },
+                    { name: '创新能力', key: 'innovation' }
+                ],
+        },
+        mounted() {
+                this.initRadarChart();
+            },
+        methods: {
+            async initRadarChart() {
+                    // 获取数据
+                    const stuId = {{ user.stu_id }};
+                    const response = await fetch(`/api/radar-data/${stuId}`);
+                    const data = await response.json();
+
+                    // 创建雷达图
+                    const ctx = document.getElementById('radarChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: '综合能力评估',
+                                data: data.values,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                                pointBorderColor: '#fff',
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                r: {
+                                    beginAtZero: true,
+                                    max: 5,
+                                    ticks: {
+                                        stepSize: 1
+                                    }
+                                }
+                            },
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+                }
+        }
+    });
+</script>

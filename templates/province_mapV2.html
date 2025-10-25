@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/right.css">
+    <link rel="stylesheet" href="/static/css/province_map.css">
+    <script type="text/javascript" src="/static/js/echarts.min.js" ></script>
+    <script type="text/javascript" src="/static/js/china.js" ></script>
+    <script type="text/javascript" src="/static/js/jquery-3.6.0.min.js" ></script>
+</head>
+<body>
+<div class="main left">
+    <div class="shrink">
+        <div class="accordion accordion-flush" id="accordionFlushExample">
+            {% if isadmin == '1' %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        实习信息管理
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                     data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"><a href="/stu_info">实习生信息</a></div>
+                    <div class="accordion-body"><a href="/work_info">实习单位信息</a> </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingTwo">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        实习过程管理
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                     data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"><a href="/feedback_list">沟通反馈</a></div>
+                    {% if isadmin == '1' %}
+                    <div class="accordion-body"><a href="/signin_record">签到记录</a></div>
+
+                    {% endif %}
+                </div>
+            </div>
+            <div class="accordion-item">
+
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#flush-collapseThree" aria-expanded="false"
+                            aria-controls="flush-collapseThree">
+                        优秀实习生管理
+                    </button>
+                </h2>
+
+                <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree"
+                     data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body"><a href="/excellent_practicer">优秀实习生申请</a></div>
+                    {% if isadmin == '1' %}
+                        <div class="accordion-body"><a href="/excellent_stu_application">优秀实习生审批</a></div>
+                        <div class="accordion-body"><a href="/excellent_stu_info">优秀实习生信息</a></div>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed data" >
+                        <a href="/feedback_list">沟通反馈</a>
+                    </button>
+                </h2>
+            </div>
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed data" >
+                        <a href="/my_information">个人信息</a>
+                    </button>
+                </h2>
+            </div>
+            {% if isadmin == '1' %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed data" >
+                        <a href="/college_manage">学院管理</a>
+                    </button>
+                </h2>
+            </div>
+            {% endif %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed data" >
+                        <a href="/position_signin">签到</a>
+                    </button>
+                </h2>
+            </div>
+            {% if isadmin == '1' %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="flush-headingThree">
+                    <button class="accordion-button collapsed data" >
+                        <a href="/province_map">实习地图</a>
+                    </button>
+                </h2>
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+<div class="main1 right">
+
+    <div class="logo">
+        <img class="logo" src="../static/img/logo.png" alt="logo">
+    </div>
+    <div class="header">
+        <span>欢迎使用实习生信息管理系统</span>
+    </div>
+    <div class="breadcrumb">
+    </div>
+    <div class="index_content">
+        <div id="main" style="width: 800px; height: 600px">
+        </div>
+        <div class="select-container">
+            <form method="post" id="myForm">
+                <select class="form-select" aria-label="Default select example" style="width: 240px" name='grade'>
+                  <option selected>选择学年</option>
+                  {% for grade in grades %}
+                        <option value="{{ grade.value }}">{{ grade.value }}</option>
+                  {% endfor %}
+                </select>
+                <select class="form-select" aria-label="Default select example" style="width: 240px" name="department">
+                  <option selected>选择学院</option>
+                  {% for department in department_list %}
+                    <option value="{{ department }}">{{ department }}</option>
+                    {% endfor %}
+                </select>
+                <button class="btn btn-outline-secondary fbtn"  id="button-addon2" style="margin-top: 10px"
+                @click="handlClick">更新图表内容</button>
+            </form>
+        </div>
+        <div class="others" id="other" style="position: absolute; right: 45px;
+
+        top: 63px; width: 485px; height: 416px;">
+        </div>
+        <div class="grade" style="position: absolute;
+        right: 45px; top: 470px;
+        width: 800px; height: 360px; overflow-y: auto;" id="grade">
+
+    </div>
+    </div>
+    <div class="data" style="width: 300px; height: 150px;
+          position: absolute; bottom: 200px;">
+        <table class="table table-hover">
+            <thead>
+    <tr>
+      <th scope="col">年级</th>
+      <th scope="col">实习人数</th>
+      <th scope="col">未实习人数</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% set ns = namespace(total_num=0, total_no_num=0) %}
+    {%  for grade, num, no_num in combined %}
+    <tr>
+      <td>{{ grade }}</td>
+      <td>{{ num }}</td>
+      <td>{{ no_num }}</td>
+    </tr>
+    {% set ns.total_num = ns.total_num + num %}
+    {% set ns.total_no_num = ns.total_no_num + no_num %}
+    {% endfor %}
+    <tr style="font-weight: bold;">
+    <td>总计</td>
+    <td>{{ ns.total_num }}</td>
+    <td>{{ ns.total_no_num }}</td>
+  </tr>
+  </tbody>
+        </table>
+    </div>
+</div>
+
+
+</body>
+<script>
+    function randomData() {
+        return Math.round(Math.random() * 500);
+    }
+
+    var mydata = [
+
+    ];
+
+    var optionMap = {
+        backgroundColor: '#FFFFFF',
+        title: {
+            text: '实习学生全国分布情况',
+            subtext: '',
+            x: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        visualMap: {
+            show: true,
+            x: 'left',
+            y: 'center',
+            splitList: [
+                {start: 500}, {start: 400, end: 500},
+                {start: 300, end: 400}, {start: 200, end: 300},
+                {start: 100, end: 200}, {start: 1, end: 100}, {start: 0, end: 0}
+            ],
+            color: ['#5475f5', '#9feaa5', '#85daef', '#74e2ca', '#e6ac53', '#9fb5ea','#f4f9ea']
+        },
+        series: [{
+            name: '数据',
+            type: 'map',
+            mapType: 'china',
+            roam: false,
+            label: {
+                normal: {
+                    show: true  //省份名称
+                },
+                emphasis: {
+                    show: false
+                }
+            },
+            data: mydata  //数据
+        }]
+    };
+    $.ajax({
+        url: '/province_map',
+        method: 'POST',
+        success: function(response) {
+                // 将后端数据合并到现有数据中
+                mydata = mydata.concat(Object.keys(response).map(function(key) {
+                    return { name: key, value: response[key] };
+                }));
+                // 更新图表数据
+                myChart.setOption({series: [{data: mydata}]});
+            },
+            error: function(error) {
+                console.log('Error fetching data from server:', error);
+            }
+    });
+     $(document).ready(function () {
+         $('#myForm').on('submit', function (event) {
+             event.preventDefault(); // 阻止表单默认提交行为
+             var formData = $(this).serialize();
+             console.log("Form Data:", formData); // 打印表单数据
+             $.ajax({
+                 url: '/province_map',
+                 method: 'POST',
+                 contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
+                 dataType: 'json',
+                 data: formData,
+                 success: function (response) {
+                     console.log("Received response:", response); // 打印响应数据
+                     mydata = [];
+                     mydata = mydata.concat(Object.keys(response).map(function (key) {
+                         return {name: key, value: response[key]};
+                     }));
+                     // 更新图表数据
+                     myChart.setOption({series: [{data: mydata}]});
+                 },
+                 error: function (error) {
+                     console.log('Error fetching data from server:', error);
+                 }
+             });
+         });
+     });
+
+
+
+    //初始化echarts实例
+    // var myChart = echarts.init(document.getElementById('main')); 取消注释就有地图了
+
+    //使用制定的配置项和数据显示图表
+    // myChart.setOption(optionMap);取消注释就有地图了
+</script>
+<script>
+var chartDom = document.getElementById('other');
+var myChart1 = echarts.init(chartDom);
+var option;
+var departmentList = {{ department_list | tojson }};
+var department_stu_num = {{ department_stu_list | tojson }};
+
+console.log(departmentList);
+console.log(department_stu_num);
+option = {
+  xAxis: {
+    type: 'category',
+    axisLabel: {
+            //x轴文字的配置
+            show: true,
+            interval: 0,//使x轴文字显示全
+            textStyle: {
+              color: "#000"
+            },
+            formatter: function(params) {
+              var newParamsName = "";
+              var paramsNameNumber = params.length;
+              var provideNumber = 4; //一行显示几个字
+              var rowNumber = Math.ceil((paramsNameNumber / provideNumber) + 1);
+              if (paramsNameNumber > provideNumber) {
+                for (var p = 0; p < rowNumber; p++) {
+                  var tempStr = "";
+                  var start = p * provideNumber;
+                  var end = start + provideNumber;
+                  if (p == rowNumber - 1) {
+                    tempStr = params.substring(start, paramsNameNumber);
+                  } else {
+                    tempStr = params.substring(start, end) + "\n";
+                  }
+                  newParamsName += tempStr;
+                }
+              } else {
+                newParamsName = params;
+              }
+              return newParamsName;
+            }
+          },
+    data: departmentList
+  },
+  yAxis: {
+    type: 'value'
+  },
+  series: [
+    {
+      data: department_stu_num,
+      type: 'bar',
+      color: '#20c997',
+      label: {
+        show: true, // 显示标签
+        position: 'top', // 标签位置，可以是 'top', 'inside', 'bottom' 等
+        formatter: function(params) {
+          return params.value; // 显示具体的数值
+        }
+      },
+        tooltip: {
+        show: true, // 显示提示框
+        formatter: function(params) {
+          return params.name + ': ' + params.value; // 提示框内容
+        }
+      }
+    }
+  ]
+};
+
+option && myChart1.setOption(option);
+</script>
+<script>
+var chartDom = document.getElementById('grade');
+var myChart2 = echarts.init(chartDom);
+var option;
+var major_list = {{ major_list | tojson }};
+var major_stu_list = {{ major_stu_list | tojson }};
+
+option = {
+  title: {
+    text: '各专业实习人数统计'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  // legend: {},
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'value',
+    boundaryGap: [0, 0.01]
+  },
+  yAxis: {
+    type: 'category',
+    data: major_list,
+  },
+  series: [
+    {
+      name: '实习人数',
+      type: 'bar',
+      data: major_stu_list,
+      itemStyle: {
+      color: '#0dcaf0' // 将颜色设置为你想要的值，例如橙色
+      }
+    }
+  ]
+};
+
+option && myChart2.setOption(option);
+
+</script>
+<script src="/static/js/vue-2.5.16.js"></script>
+<script src="/static/js/nav.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/datashow.js"></script>
+<script>
+    new Vue({
+        el:'#button-addon2',
+        methods:{
+            handlClick(){
+                alert('已更新图表内容！');
+            }
+        }
+    })
+</script>
+<script
+async
+defer
+src="https://try2.fit2cloud.cn/api/application/embed?protocol=https&host=try2.fit2cloud.cn&token=66d5b4dd18b4e9ee">
+</script>
+
+
+</html>

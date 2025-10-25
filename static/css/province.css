@@ -1,0 +1,115 @@
+
+.switch-buttons .btn {
+    margin-right: 10px;
+    transition: all 0.3s;
+}
+.switch-buttons .btn.active {
+    background-color: #007bff;
+    color: white;
+    transform: scale(1.05);
+}
+/* 表格容器样式 */
+.table-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.9); /* 半透明背景 */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* 柔和阴影 */
+}
+
+/* 表格样式 */
+#provinceTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* 表头样式 */
+#provinceTable thead {
+    background: #2a5298; /* 深蓝色表头 */
+    color: white; /* 白色字体 */
+}
+
+#provinceTable th {
+    padding: 12px;
+    text-align: left;
+    font-size: 16px;
+}
+
+/* 表格行样式 */
+#provinceTable tbody tr {
+    transition: background 0.3s ease;
+}
+
+#provinceTable tbody tr:hover {
+    background: rgba(0, 0, 0, 0.05); /* 悬停效果 */
+}
+
+#provinceTable td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* 垂直滚动条样式 */
+#scrollBar {
+    -webkit-appearance: slider-vertical;
+    writing-mode: bt-lr;
+    width: 10px;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    outline: none;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+#scrollBar:hover {
+    opacity: 1;
+}
+
+/* 表格动画 */
+@keyframes slideDown {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-50%); /* 滚动到一半（因为内容复制了一份） */
+    }
+}
+
+.slide-down {
+    animation: slideDown 80s linear infinite;
+}
+@keyframes slideDown {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-50%);
+    }
+}
+.header {
+            margin-left: 29%;
+            margin-top: -4%;
+            width: 195%;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .scroll-text {
+            display: inline-block;
+            padding-left: 20%;
+            animation: scroll-left 20s linear infinite;
+        }
+
+        @keyframes scroll-left {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+

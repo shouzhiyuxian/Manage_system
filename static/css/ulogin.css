@@ -1,0 +1,67 @@
+body{
+    background-image: url("/static/img/bgp1.jpg");
+    background-repeat: no-repeat;
+    background-size:cover;
+    font-size: 15px;
+    background-position: center;
+}
+
+.container{
+    width: 350px;
+    padding: 16px;
+    margin: 100px auto;
+    border: 1px solid white;
+    background-color: white;
+    border-radius: 4px;
+}
+input.form-control:valid{
+    background-color: mintcream;
+}
+/*当输入正确时,给输入框设置浅红色*/
+input.form-control:invalid{
+    background-color: #ffeeed;
+}
+#app{
+    display: flex;
+    justify-content: space-around;
+}
+input[type='text'], input[type='password']{
+    width: 100%;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    margin: 8px 2px;
+    display: inline-block;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+}
+form{
+    color: #cccccc;
+}
+button:hover {
+            opacity: 0.8;
+}
+button{
+    width: 100%;
+    background-color: #4CAF50;
+    padding: 14px 20px;
+    margin: 8px 2px;
+    color: white;
+}
+#button{
+    padding-bottom: 50px;
+}
+.form-group{
+    color: black;
+    margin-bottom: 30px;
+}
+.fa{
+    display: inline-block;
+    top: 27px;
+    left: 6px;
+    position: relative;
+    color: #575757;
+}
+span a{
+    color: #4CAF50;
+    margin: 4px;
+}

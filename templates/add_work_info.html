@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实习生信息管理</title>
+    <!-- CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/right.css">
+    <link rel="stylesheet" href="/static/css/my_information.css">
+    <link rel="stylesheet" href="/static/css/stu_info.css">
+    <link rel="stylesheet" href="/static/css/add_stu_info.css">
+    <link rel="stylesheet" href="/static/css/new_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="main-left">
+    <div class="sidebar-wrapper">
+        <div class="sidebar-menu">
+            {% if isadmin == '1' %}
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/province_map" class="menu-link">
+                        <i class="fas fa-house"></i>
+                        <span class="menu-text">智能看板</span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            {% if isadmin == '1' %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习信息管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/stu_info"
+                                                                                          style="color: #ffffffbd;">实习生信息</a>
+                        </div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/work_info"
+                                                                                          style="color: #ffffffbd;">实习单位信息</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习过程管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/feedback_list"
+                                                                                          style="color: #ffffffbd;">悄悄话</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/signin_record"
+                                                                                          style="color: #ffffffbd;">签到记录</a>
+                        </div>
+                        {% endif %}
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/admin_reports" style="color: #ffffffbd;">实习周报审批</a>
+                        </div>
+                        {% else %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/report" style="color: #ffffffbd;">实习周报</a>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree"
+                                style="background-color: #2a3042; color: #ffffffbd;">
+                            优秀实习生管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingThree"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_practicer"
+                                                                                          style="color: #ffffffbd;">优秀实习生申请</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a
+                                href="/excellent_stu_application" style="color: #ffffffbd;">优秀实习生审批</a></div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_stu_info"
+                                                                                          style="color: #ffffffbd;">优秀实习生信息</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/my_information" class="menu-link">
+                        <i class="fas fa-user-cog"></i>
+                        <span class="menu-text">个人信息</span>
+                    </a>
+                </div>
+                {% if isadmin == '1' %}
+                <div class="menu-item">
+                    <a href="/college_manage" class="menu-link">
+                        <i class="fas fa-university"></i>
+                        <span class="menu-text">学院管理</span>
+                    </a>
+                </div>
+                {% endif %}
+                <div class="menu-item">
+                    <a href="/sign_in_calendar" class="menu-link highlight">
+                        <i class="fas fa-map-pin"></i>
+                        <span class="menu-text">立即签到</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main right" style="position: absolute;
+    left: 255px;">
+    <div class="logo text-center mb-4" style="top: 0.5em">
+        <img src="../static/img/logo.png" alt="logo" class="img-fluid" style="max-height: 88px">
+    </div>
+    <div class="header">
+        <span>实习生管理系统</span>
+    </div>
+    <div class="breadcrumb">
+        <nav class="mb-4" style="margin-top: 2%">
+        <div class="d-flex justify-content-between align-items-center">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/index" class="text-decoration-none">首页</a></li>
+                <li class="breadcrumb-item"><a href="/index" class="text-decoration-none">实习生单位信息</a></li>
+                <li class="breadcrumb-item active">新增</li>
+            </ol>
+            <div class="user-status d-flex align-items-center flex-nowrap" style="padding-right: 24px;">
+                <span class="text-muted text-nowrap me-2">欢迎，{{ user_name }}！</span>
+                <a href="/login" class="btn btn-sm btn-outline-danger flex-shrink-0">退出系统</a>
+            </div>
+        </div>
+    </nav>
+
+
+    </div>
+    <div class="content">
+        <form id="form" method="post">
+            <div class="filter">
+            <table>
+                <div style="margin-top: 10px">
+                    实习单位名称<input class="form-control" type="text" placeholder="实习单位名称" aria-label="default input example" name="work_name" style="width: auto; margin-top: 10px">
+                </div>
+                <div style="margin-top: 20px">
+                    实习单位地点
+                 <div style="margin-top: 20px;">
+            省份
+            <select id="province" class="form-control" name="province" style="width: auto; margin-top: 10px;">
+                <option value="">请选择省份</option>
+                <!-- 其他省份选项 -->
+            </select>
+        </div>
+        <div style="margin-top: 20px;">
+            市区
+            <select id="city" class="form-control" name="city" style="width: auto; margin-top: 10px;">
+                <option value="">请选择市区</option>
+                <!-- 其他市区选项 -->
+            </select>
+        </div>
+                    具体地点
+                    <input class="form-control" type="text" placeholder="实习单位地点" aria-label="default input example" name="work_position" style="width: auto; margin-top: 10px">
+                </div>
+            </table>
+                <button class="btn btn-outline-secondary fbtn" type="submit" id="button-addon2" style="margin-top: 10px">保存提交</button>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/static/js/vue-2.5.16.js"></script>
+<script src="/static/js/nav.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery and JavaScript Bundle with Popper -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const provinceSelect = document.getElementById('province');
+    const citySelect = document.getElementById('city');
+
+    const provincesAndCities = {
+        '北京市': ['北京市'],
+        '天津市': ['天津市'],
+        '河北省': ['石家庄市', '唐山市', '秦皇岛市', '邯郸市', '邢台市', '保定市', '张家口市', '承德市', '沧州市', '廊坊市', '衡水市'],
+        '山西省': ['太原市', '大同市', '阳泉市', '长治市', '晋城市', '朔州市', '晋中市', '运城市', '忻州市', '临汾市', '吕梁市'],
+        '内蒙古自治区': ['呼和浩特市', '包头市', '乌海市', '赤峰市', '通辽市', '鄂尔多斯市', '巴彦淖尔市', '呼伦贝尔市', '兴安盟', '锡林郭勒盟'],
+        '辽宁省': ['沈阳市', '大连市', '鞍山市', '抚顺市', '本溪市', '丹东市', '锦州市', '营口市', '阜新市', '辽阳市', '盘锦市', '铁岭市', '朝阳市', '葫芦岛市'],
+        '吉林省': ['长春市', '吉林市', '四平市', '辽源市', '通化市', '白山市', '松原市', '白城市', '延边朝鲜族自治州'],
+        '黑龙江省': ['哈尔滨市', '齐齐哈尔市', '鸡西市', '鹤岗市', '双鸭山市', '大庆市', '伊春市', '佳木斯市', '七台河市', '牡丹江市', '黑河市', '绥化市', '大兴安岭地区'],
+        '江苏省': ['南京市', '无锡市', '徐州市', '常州市', '苏州市', '南通市', '连云港市', '淮安市', '盐城市', '扬州市', '镇江市', '泰州市', '宿迁市'],
+        '浙江省': ['杭州市', '宁波市', '温州市', '嘉兴市', '湖州市', '绍兴市', '金华市', '衢州市', '舟山市', '台州市', '丽水市'],
+        '安徽省': ['合肥市', '芜湖市', '蚌埠市', '淮南市', '马鞍山市', '淮北市', '铜陵市', '安庆市', '黄山市', '滁州市', '阜阳市', '宿州市', '六安市', '亳州市', '池州市', '宣城市'],
+        '福建省': ['福州市', '厦门市', '莆田市', '三明市', '泉州市', '漳州市', '南平市', '龙岩市', '宁德市'],
+        '江西省': ['景德镇市', '萍乡市', '九江市', '新余市', '鹰潭市', '赣州市', '吉安市', '宜春市', '抚州市', '上饶市'],
+        '山东省': ['济南市', '青岛市', '淄博市', '枣庄市', '东营市', '烟台市', '潍坊市', '济宁市', '泰安市', '威海市', '日照市', '莱芜市', '临沂市', '德州市', '聊城市', '滨州市', '菏泽市'],
+        '河南省': ['新乡市', '开封市', '洛阳市', '平顶山市', '安阳市', '鹤壁市', '新郑市', '焦作市', '濮阳市', '许昌市', '漯河市', '三门峡市', '南阳市', '商丘市', '信阳市', '周口市', '驻马店市'],
+        '湖北省': ['宜昌市', '武汉市', '荆门市', '孝感市', '荆州市', '黄冈市', '咸宁市', '随州市', '恩施土家族苗族自治州'],
+        '湖南省': ['长沙市', '株洲市', '湘潭市', '衡阳市', '邵阳市', '岳阳市', '张家界市', '益阳市', '郴州市', '永州市'],
+        '广东省': ['广州市', '韶关市', '湛江市', '茂名市', '肇庆市', '惠州市', '梅州市', '汕尾市', '河源市', '阳江市', '清远市', '东莞市', '中山市', '潮州市', '揭阳市', '云浮市'],
+        '海南省': ['海口市'],
+        '四川省': ['成都市', '绵阳市', '德阳市', '广元市', '雅安市', '巴中市', '资阳市', '阿坝藏族羌族自治州'],
+        '贵州省': ['贵阳市', '黔南州'],
+        '云南省': ['昆明市', '大理州', '丽江州', '普洱州'],
+        '西藏自治区': ['拉萨市'],
+        '陕西省': ['西安市', '咸阳市', '渭南市'],
+        '甘肃省': ['兰州市', '嘉峪关市'],
+        '青海省': ['黄南藏族自治州'],
+        '台湾省': ['台北市'],
+        '澳门特别行政区': [],
+        '香港特别行政区': []
+};
+
+
+    function populateProvinces() {
+        for (let province in provincesAndCities) {
+            let option = document.createElement('option');
+            option.value = province;
+            option.textContent = province;
+            provinceSelect.appendChild(option);
+        }
+    }
+
+    function populateCities(province) {
+        citySelect.innerHTML = ''; // 清空市区选择框
+        if (provincesAndCities[province]) {
+            provincesAndCities[province].forEach(city => {
+                let option = document.createElement('option');
+                option.value = city;
+                option.textContent = city;
+                citySelect.appendChild(option);
+            });
+        }
+    }
+
+    provinceSelect.addEventListener('change', function() {
+        populateCities(this.value);
+    });
+
+    populateProvinces();
+});
+
+</script>
+</body>
+</html>

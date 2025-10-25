@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实习生信息管理</title>
+    <!-- CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/right.css">
+    <link rel="stylesheet" href="/static/css/my_information.css">
+    <link rel="stylesheet" href="/static/css/stu_info.css">
+    <link rel="stylesheet" href="/static/css/new_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .breadcrumb li:nth-child(4) {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            color: white;
+            padding: 10px 20px;
+            margin-left: auto;
+            width: 300px;
+        }
+        .status-bar{
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+<div class="main-left">
+    <div class="sidebar-wrapper">
+        <div class="sidebar-menu">
+            {% if isadmin == '1' %}
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/province_map" class="menu-link">
+                        <i class="fas fa-house"></i>
+                        <span class="menu-text">智能看板</span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            {% if isadmin == '1' %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习信息管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/stu_info"
+                                                                                          style="color: #ffffffbd;">实习生信息</a>
+                        </div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/work_info"
+                                                                                          style="color: #ffffffbd;">实习单位信息</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习过程管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/feedback_list"
+                                                                                          style="color: #ffffffbd;">悄悄话</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/signin_record"
+                                                                                          style="color: #ffffffbd;">签到记录</a>
+                        </div>
+                        {% endif %}
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/admin_reports" style="color: #ffffffbd;">实习周报审批</a>
+                        </div>
+                        {% else %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/report" style="color: #ffffffbd;">实习周报</a>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree"
+                                style="background-color: #2a3042; color: #ffffffbd;">
+                            优秀实习生管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingThree"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_practicer"
+                                                                                          style="color: #ffffffbd;">优秀实习生申请</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a
+                                href="/excellent_stu_application" style="color: #ffffffbd;">优秀实习生审批</a></div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_stu_info"
+                                                                                          style="color: #ffffffbd;">优秀实习生信息</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/my_information" class="menu-link">
+                        <i class="fas fa-user-cog"></i>
+                        <span class="menu-text">个人信息</span>
+                    </a>
+                </div>
+                {% if isadmin == '1' %}
+                <div class="menu-item">
+                    <a href="/college_manage" class="menu-link">
+                        <i class="fas fa-university"></i>
+                        <span class="menu-text">学院管理</span>
+                    </a>
+                </div>
+                {% endif %}
+                <div class="menu-item">
+                    <a href="/sign_in_calendar" class="menu-link highlight">
+                        <i class="fas fa-map-pin"></i>
+                        <span class="menu-text">立即签到</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main right  ps-4 pe-4" id="app" style="margin-left: 13%">
+   <div class="logo text-center mb-4" style="top: 0.5em">
+        <img src="../static/img/logo.png" alt="logo" class="img-fluid" style="max-height: 88px">
+    </div>
+    <div class="header">
+        <span>实习生管理系统</span>
+    </div>
+
+     <nav class="mb-4" style="margin-top: 2%">
+        <div class="d-flex justify-content-between align-items-center">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/index" class="text-decoration-none">首页</a></li>
+                <li class="breadcrumb-item active">优秀实习生审批</li>
+            </ol>
+            <div class="user-status d-flex align-items-center flex-nowrap" style="padding-right: 24px;">
+                <span class="text-muted text-nowrap me-2">欢迎，{{ user_name }}！</span>
+                <a href="/login" class="btn btn-sm btn-outline-danger flex-shrink-0">退出系统</a>
+            </div>
+
+
+        </div>
+    </nav>
+    <div class="content">
+    <form id="form" method="post" class="mb-4">
+        <div class="card shadow-sm">
+                <div class="card-body">
+                    <form>
+                        <div class="row g-4">
+        <!-- 第一行 -->
+        <div class="col-12">
+            <div class="row g-4 align-items-center">
+                <!-- 学年 -->
+                <div class="col-md-3">
+                    <div class="row align-items-center g-2">
+                        <div class="col-auto">
+                            <label class="form-label mb-0">所属学年</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-select">
+                                <option selected>2023-2024</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 所属年级 -->
+                <div class="col-md-3">
+                    <div class="row align-items-center g-2">
+                        <div class="col-auto">
+                            <label class="form-label mb-0">所属年级</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-select" name="grade">
+                                <option value="0">请选择年级</option>
+                                {% for grade in grades %}
+                                <option value="{{ grade.value }}" {% if grade.selected %}selected{% endif %}>{{ grade.label }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 院系选择 -->
+                <div class="col-md-3">
+                    <div class="row align-items-center g-2">
+                        <div class="col-auto">
+                            <label class="form-label mb-0">选择院系</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-select" name="department" id="department">
+                                <option value="0">请选择院系</option>
+                                {% for dept in departments %}
+                                <option value="{{ dept.id }}" {% if stu_info.department_name == dept.department_name %}selected{% endif %}>
+                                    {{ dept.department_name }}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 第二行 -->
+        <div class="col-12">
+            <div class="row g-4 align-items-center">
+                <!-- 所属专业 -->
+                <div class="col-md-3">
+                    <div class="row align-items-center g-2">
+                        <div class="col-auto">
+                            <label class="form-label mb-0">所属专业</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-select" name="major" id="major">
+                                <option value="0">请选择专业</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 所属班级 -->
+                <div class="col-md-3">
+                    <div class="row align-items-center g-2">
+                        <div class="col-auto">
+                            <label class="form-label mb-0">所属班级</label>
+                        </div>
+                        <div class="col">
+                            <select class="form-select" name="class">
+                                <option value="0">请选择班级</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 学号搜索 -->
+                <div class="col-md-3">
+                    <div class="row align-items-center g-2">
+                        <div class="col-auto">
+                            <label class="form-label mb-0">学号查询</label>
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="请输入学号" name="stu_id">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 操作按钮 -->
+                <div class="col-md-3">
+                    <div class="d-flex gap-3 justify-content-end">
+                        <button type="submit" class="btn btn-outline-primary flex-shrink-0" style="position: absolute;
+        left: 88%;
+        top: 49%;">
+                            <i class="bi bi-search me-2"></i>立即查询
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    </form>
+                </div>
+            </div>
+    </form>
+            <div class="stu_info">
+                <form method="post" id="rejectForm">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>
+                          <input class="form-check-input" type="checkbox" value="" id="defaultCheck2" disabled>
+                            <label class="form-check-label" for="defaultCheck2">
+                                多选项
+                            </label>
+                      </th>
+                      <th scope="col">学号</th>
+                      <th scope="col">学生姓名</th>
+                      <th scope="col">年级</th>
+                      <th scope="col">院系</th>
+                      <th scope="col">专业</th>
+                      <th scope="col">所在班级</th>
+                      <th scope="col">指导老师</th>
+                      <th scope="col">单位名称</th>
+                      <th scope="col">提交日期</th>
+                      <th scope="col">操作</th>
+
+                    </tr>
+                  </thead>
+                  <tbody style="font-size: 0.9em">
+
+                  {% for user in users.items %}
+
+                    {% if user %}
+                    <tr>
+                      <td>
+                          <input class="form-check-input" type="checkbox" value="{{ user.stu_id }}" id="defaultCheck1" name="selected_ids">
+                          <label class="form-check-label" for="defaultCheck1"></label>
+                      </td>
+                      <td >{{  user.stu_id  }}</td>
+                      <td>{{ user.stu_name }}</td>
+                      <td>{{ user.grade }}</td>
+                      <td>{{ user.department }}</td>
+                      <td>{{ user.major }}</td>
+                      <td>{{ user.class_id }}</td>
+                      <td>{{ user.mentor }}</td>
+                      <td>{{ user.work_name }}</td>
+                      <td>{{ user.approval_date }}</td>
+                        {% if user.state == '未处理' %}
+                      <td>
+<!--                          <button class="btn btn-outline-secondary fbtn" id="button-addon2" @click="approve({{ user.stu_id }})">同意</button>-->
+
+                          <button class="btn btn-outline-secondary fbtn" id="button-addon2"><a href="/excellent_detail?user_id={{ user.stu_id }}">详情</a></button>
+                          <button class="btn btn-outline-secondary fbtn" id="button-addon2" @click="confirmReject({{ user.stu_id }})">驳回</button>
+                      </td>
+                        {% else %}
+                            <td>
+                                <button class="btn btn-outline-secondary fbtn" id="button-addon2"><a href="/excellent_detail?user_id={{ user.stu_id }}">详情</a></button>
+                                <button class="btn btn-outline-secondary fbtn" id="button-addon2">{{ user.state }}</button>
+                            </td>
+                        {% endif %}
+                    </tr>
+                  {% else %}
+                  N/A
+                  {% endif %}
+                  {% endfor %}
+                  </tbody>
+                </table>
+                </form>
+                    <nav aria-label="Page navigation example">
+                       <ul class="pagination">
+                        {% if users.has_prev %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('excellent_stu_application', page=users.prev_num) }}">Previous</a>
+                        </li>
+                        {% endif %}
+
+                        {% for page_num in users.iter_pages(left_edge=2, right_edge=2, left_current=3, right_current=3)
+                        %}
+                        {% if page_num %}
+                        <li class="page-item {% if page_num == users.page %}active{% endif %}">
+                            <a class="page-link" href="{{ url_for('excellent_stu_application', page=page_num) }}">{{ page_num }}</a>
+                        </li>
+                        {% else %}
+                        <li class="page-item disabled">
+                            <span class="page-link">...</span>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+
+                        {% if users.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ url_for('excellent_stu_application', page=users.next_num) }}">Next</a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                    </nav>
+            </div>
+
+    </div>
+</div>
+
+<script src="/static/js/vue-2.5.16.js"></script>
+<script src="/static/js/axios-0.18.0.min.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/jquery-3.6.0.min.js"></script>
+
+<script>
+        $(document).ready(function(){
+            $('#department').change(function(){
+                var departmentId = $(this).val();
+                if (departmentId) {
+                    $.ajax({
+                        url: '/get_majors/' + departmentId,
+                        method: 'GET',
+                        success: function(data){
+                            var majors = data.majors;
+                            var $majorSelect = $('#major');
+                            $majorSelect.empty();
+                            $majorSelect.append('<option value="0">所属专业</option>');
+                            $.each(majors, function(index, major){
+                                $majorSelect.append('<option value="' + major.id + '">' + major.major_name + '</option>');
+                            });
+                        }
+                    });
+                } else {
+                    $('#major').empty();
+                    $('#major').append('<option value="0">所属专业</option>');
+                }
+            });
+        });
+</script>
+<script>
+        function batchReject() {
+            var form = document.getElementById('rejectForm');
+            var formData = new FormData(form);
+            fetch('/group_reject', {
+                method: 'POST',
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message);
+                location.reload(); // 刷新页面以反映更改
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+
+<!-- jQuery and JavaScript Bundle with Popper -->
+<script>
+    let vm = new Vue({
+        el: '#app',
+        delimiters: ['[[', ']]'],
+        methods:{
+            approve(stu_id){
+                axios.get(
+                    '/update_status',{
+                        params: {
+                            stu_id : stu_id,
+                            action: 'agree'
+                        }
+                    })
+                    .then(response=>{
+                        alert('已同意该审批')
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            },
+            confirmReject(stu_id) {
+            if (confirm('确定要驳回该学生吗？')) {
+
+                this.reject(stu_id);
+                } else {
+                    // 用户点击了取消，什么也不做
+                }
+            },
+            reject(stu_id){
+                axios.get('/update_status',{
+                    params: {
+                        stu_id: stu_id,
+                        action: 'reject'
+                    }
+                })
+                .then(response=>{
+                    alert('已驳回该审批')
+                })
+                .catch(error => {
+                        console.error('Error:', error);
+                    });
+            },
+            playSound(soundFile) {
+            let audio = new Audio(soundFile);
+            audio.play();
+            console.log('在播放了')
+        }
+        }
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+form{
+    background-color: #f1f5f9;
+    border-radius: 4px;
+}
+.form-select{
+    width: 240px;
+}
+table tr td {
+    margin-right: 10px;
+    padding-right: 400px;
+}
+.btn-outline-primary{
+    border-radius: 4px ;
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
+    width: 8em;
+    /*margin-right: 10em;*/
+}
+.search{
+    height: 30px;
+    margin-top: 5px;
+
+}
+.stu_info{
+    margin-top: 10px;
+    border-top: 2px solid ;
+}
+.add_button{
+    border-radius: 4px;
+    color: #0d6efd;
+    border: 2px solid #0d6efd;
+    width: 8em;
+}
+.fbtn:before{
+    content: none;
+    border: 2px solid #6c757d;
+    border-radius: 4px;
+}
+.fbtn{
+    background: #0d6efd52;
+    --bs-btn-hover-color: black;
+    color: black;
+}
+.score-cell{
+    color: #0d6efd;
+}

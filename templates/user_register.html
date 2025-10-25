@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户注册</title>
+<!--    <link rel="stylesheet" href="/static/css/uregister.css">-->
+    <script src="/static/js/jquery-3.6.0.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: #f5f7f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            width: 400px;
+        }
+
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #5c677d;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            height: 40px;
+            padding: 8px 12px;
+            border: 1px solid #dcdfe6;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #409eff;
+            box-shadow: 0 0 0 2px rgba(64, 158, 255, 0.1);
+        }
+
+        .img-code-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .img-code-group input {
+            flex: 1;
+        }
+
+        .img_code {
+            height: 40px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button {
+            width: 100%;
+            height: 40px;
+            background-color: #409eff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #66b1ff;
+        }
+
+        .bottom-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .bottom-links a {
+            color: #409eff;
+            font-size: 14px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .bottom-links a:hover {
+            opacity: 0.8;
+        }
+
+        .error-msg {
+            color: #f56c6c;
+            font-size: 12px;
+            margin-top: 4px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>用户注册</h2>
+        <form method="post">
+            {{ form.csrf_token }}
+            <div id="app">
+                <!-- 学工号 -->
+                <div class="form-group">
+                    <label for="username">学工号</label>
+                    <input
+                        type="text"
+                        name="username"
+                        id="username"
+                        placeholder="请输入学工号"
+                        v-model="username"
+                        @blur="check_name"
+                    >
+                    <div class="error-msg" v-show="error_name">[[ error_name_message ]]</div>
+                </div>
+
+                <!-- 密码 -->
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input
+                        type="password"
+                        name="password"
+                        id="password"
+                        placeholder="请输入密码"
+                        v-model="password"
+                    >
+                </div>
+
+                <!-- 确认密码 -->
+                <div class="form-group">
+                    <label for="resetpw">确认密码</label>
+                    <input
+                        type="password"
+                        name="resetpw"
+                        id="resetpw"
+                        placeholder="请确认密码"
+                    >
+                </div>
+
+                <!-- 手机号 -->
+                <div class="form-group">
+                    <label for="phone">手机号</label>
+                    <input
+                        type="text"
+                        name="phone"
+                        id="phone"
+                        placeholder="请输入手机号"
+                        v-model="phone"
+                        @blur="check_phone"
+                    >
+                    <div class="error-msg" v-show="error_phone">[[ error_phone_message ]]</div>
+                </div>
+
+                <!-- 邮箱 -->
+                <div class="form-group">
+                    <label for="email">邮箱</label>
+                    <input
+                        type="email"
+                        name="email"
+                        id="email"
+                        placeholder="请输入邮箱"
+                    >
+                </div>
+
+                <!-- 验证码 -->
+                <div class="form-group">
+                    <label for="img_code">验证码</label>
+                    <div class="img-code-group">
+                        <input
+                            type="text"
+                            name="img_code"
+                            id="img_code"
+                            placeholder="请输入验证码"
+                        >
+                        <img
+                            v-bind:src="image_code_url"
+                            alt="验证码"
+                            class="img_code"
+                            @click="image_code"
+                        >
+                    </div>
+                </div>
+
+                <button type="submit">立即注册</button>
+
+                <div class="bottom-links">
+                    <span>已有账号？<a href="/login">立即登录</a></span>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script src="/static/js/vue-2.5.16.js"></script>
+    <script src="/static/js/axios-0.18.0.min.js"></script>
+    <script src="/static/js/user_register.js"></script>
+</body>
+</html>

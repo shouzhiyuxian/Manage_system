@@ -1,0 +1,48 @@
+body{
+    font-size: 24px;
+    display: flex;
+}
+html, body, #container {
+    height: 93%;
+    width: 87%;
+}
+.map{
+    height: 10.125rem;
+    position: relative;
+
+}
+.map1{
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 96%;
+    transform: translate(-50%, -50%);
+    background: url(../img/188389dec17a7ca8a8cf498cc8831733.jpg);
+    opacity: 0.3;
+    background-size: 100%, 100%;
+}
+
+@keyframes rotate1 {
+    from{
+        transform: translate(-50%, -50%)
+        rotate(0deg);
+    }
+    to{
+        transform: translate(-50%, -50%)
+        rotate(360deg);
+    }
+}
+.map2{
+    width: 800px;
+    height: 600px;
+    position: absolute;
+    top: 50%;
+    left: 96%;
+    background: url(../img/5582.png_860.png);
+    opacity: 0.2;
+    background-size: 100%, 100%;
+    animation: rotate1 15s linear infinite;
+
+
+}

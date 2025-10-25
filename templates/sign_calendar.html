@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实习周报</title>
+    <!-- CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/right.css">
+    <link rel="stylesheet" href="/static/css/my_information.css">
+    <link rel="stylesheet" href="/static/css/stu_info.css">
+    <link rel="stylesheet" href="/static/css/new_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!--    <script src="/static/js/vue-2.5.16.js"></script>-->
+</head>
+<style>
+    .send::before {
+        content: none;
+    }
+
+    .send {
+        border: none;
+        color: white;
+        background-color: #0d6efd;
+    }
+
+    .send:hover {
+        background-color: #0d6efd;
+        color: white;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .btn-recording {
+        animation: pulse 1.5s infinite;
+        background-color: #0d6efd !important;
+        color: white !important;
+    }
+
+    /* 悬停效果 */
+    .btn:hover {
+        transform: translateY(-1px);
+        transition: all 0.3s ease;
+    }
+
+</style>
+<body>
+<div class="main-left">
+    <div class="sidebar-wrapper">
+        <div class="sidebar-menu">
+            {% if isadmin == '1' %}
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/province_map" class="menu-link">
+                        <i class="fas fa-house"></i>
+                        <span class="menu-text">智能看板</span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            {% if isadmin == '1' %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习信息管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/stu_info"
+                                                                                          style="color: #ffffffbd;">实习生信息</a>
+                        </div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/work_info"
+                                                                                          style="color: #ffffffbd;">实习单位信息</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习过程管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/feedback_list"
+                                                                                          style="color: #ffffffbd;">悄悄话</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/signin_record"
+                                                                                          style="color: #ffffffbd;">签到记录</a>
+                        </div>
+                        {% endif %}
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/admin_reports"
+                                                                                          style="color: #ffffffbd;">实习周报审批</a>
+                        </div>
+                        {% else %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/report"
+                                                                                          style="color: #ffffffbd;">实习周报</a>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree"
+                                style="background-color: #2a3042; color: #ffffffbd;">
+                            优秀实习生管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingThree"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_practicer"
+                                                                                          style="color: #ffffffbd;">优秀实习生申请</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a
+                                href="/excellent_stu_application" style="color: #ffffffbd;">优秀实习生审批</a></div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_stu_info"
+                                                                                          style="color: #ffffffbd;">优秀实习生信息</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/my_information" class="menu-link">
+                        <i class="fas fa-user-cog"></i>
+                        <span class="menu-text">个人信息</span>
+                    </a>
+                </div>
+                {% if isadmin == '1' %}
+                <div class="menu-item">
+                    <a href="/college_manage" class="menu-link">
+                        <i class="fas fa-university"></i>
+                        <span class="menu-text">学院管理</span>
+                    </a>
+                </div>
+                {% endif %}
+                <div class="menu-item">
+                    <a href="/sign_in_calendar" class="menu-link highlight">
+                        <i class="fas fa-map-pin"></i>
+                        <span class="menu-text">立即签到</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main right  ps-4 pe-4" style="margin-left: 13%">
+    <div class="logo text-center mb-4" style="top: 0.5em">
+        <img src="../static/img/logo.png" alt="logo" class="img-fluid" style="max-height: 88px">
+    </div>
+    <div class="header">
+        <span>实习生管理系统</span>
+    </div>
+    <nav class="mb-4" style="margin-top: 2%">
+        <div class="d-flex justify-content-between align-items-center">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/index" class="text-decoration-none">首页</a></li>
+                <li class="breadcrumb-item active">签到日历</li>
+            </ol>
+            <div class="user-status d-flex align-items-center flex-nowrap" style="padding-right: 24px;">
+                <span class="text-muted text-nowrap me-2">欢迎，{{ user_name }}！</span>
+                <a href="/login" class="btn btn-sm btn-outline-danger flex-shrink-0">退出系统</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4">
+        <h2 class="mb-4">签到日历</h2>
+
+        <!-- 月份导航 -->
+        <div class="d-flex justify-content-between mb-3 align-items-center">
+            <a href="{{ url_for('sign_in_calendar', year=prev_month.year, month=prev_month.month) }}"
+               class="btn btn-outline-primary">← 上月</a>
+            <div class="text-center">
+                <h4>{{ current_year }}年 {{ current_month }}月</h4>
+                <div class="text-muted">今天是{{ today.strftime('%Y年%m月%d日') }}</div>
+            </div>
+            <a href="{{ url_for('sign_in_calendar', year=next_month.year, month=next_month.month) }}"
+               class="btn btn-outline-primary">下月 →</a>
+        </div>
+
+        <!-- 日历表格 -->
+        <table class="table table-bordered text-center">
+            <thead class="thead-light">
+            <tr>
+                <th>周一</th>
+                <th>周二</th>
+                <th>周三</th>
+                <th>周四</th>
+                <th>周五</th>
+                <th>周六</th>
+                <th>周日</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for week in calendar %}
+            <tr>
+                {% for day in week %}
+                <td class="calendar-day
+                    {% if day.signed %}bg-success text-white
+                    {% elif day.is_today %}border border-3 border-primary
+                    {% endif %}"
+                    data-date="{{ day.date_str }}">
+                    {% if day.day %}
+                    <div class="d-flex flex-column justify-content-center" style="height: 80px;">
+                        <div>
+                            {{ day.day }}
+                            {% if day.is_today %}
+                            <div class="small text-primary">今日</div>
+                            {% endif %}
+                        </div>
+                        {% if day.signed %}
+                        <div class="small">已签到</div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- 签到按钮 -->
+        <div class="text-center mt-4">
+            {% if not today_signed %}
+            <a href="{{ url_for('position_signin') }}" class="btn btn-primary btn-lg px-5">
+                <i class="bi bi-check2-circle"></i> 立即签到
+            </a>
+            {% else %}
+            <button class="btn btn-success btn-lg px-5" disabled>
+                <i class="bi bi-check2-all"></i> 今日已签到
+            </button>
+            {% endif %}
+        </div>
+    </div>
+
+
+    <!-- 签到模态框 -->
+    <div class="modal fade" id="signModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">签到确认</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>确认要签到吗？</p>
+                    <p id="signDate"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="confirmSign">确认签到</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="detailModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">签到详情</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <div class="row mb-2">
+                    <div class="col-4 fw-bold">签到日期：</div>
+                    <div class="col-8" id="detailDate"></div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-4 fw-bold">签到时间：</div>
+                    <div class="col-8" id="detailTime"></div>
+                </div>
+                <div class="row">
+                    <div class="col-4 fw-bold">签到位置：</div>
+                    <div class="col-8" id="detailLocation"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script src="/static/js/vue-2.5.16.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/jquery-3.6.0.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const detailModal = new bootstrap.Modal('#detailModal');
+
+    // 日期点击处理
+    document.querySelectorAll('.calendar-day').forEach(day => {
+        day.addEventListener('click', function() {
+            const date = this.dataset.date;
+            const isSigned = this.classList.contains('bg-success');
+
+            if (isSigned) {
+                // 获取签到详情
+                fetch(`/get_sign_details?date=${date}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                            return;
+                        }
+                        // 填充详情数据
+                        document.getElementById('detailDate').textContent = data.date;
+                        document.getElementById('detailTime').textContent = data.time;
+                        document.getElementById('detailLocation').textContent = data.location || '无位置记录';
+                        detailModal.show();
+                    })
+                    .catch(error => console.error('Error:', error));
+            } else {
+                // 显示签到确认框
+                document.getElementById('signDate').textContent = `签到日期：${date}`;
+                signModal.show();
+            }
+        });
+    });
+    });
+</script>
+<!--<script>-->
+<!--    document.addEventListener('DOMContentLoaded', function () {-->
+<!--        // 处理日期点击-->
+<!--        document.querySelectorAll('.calendar-day').forEach(day => {-->
+<!--            day.addEventListener('click', function () {-->
+<!--                const date = this.dataset.date;-->
+<!--                if (!this.classList.contains('bg-success')) { // 未签到日期-->
+<!--                    document.getElementById('signDate').textContent = `签到日期：${date}`;-->
+<!--                    $('#signModal').modal('show');-->
+
+<!--                    // 处理签到确认-->
+<!--                    document.getElementById('confirmSign').onclick = function () {-->
+<!--                        fetch('/sign_in', {-->
+<!--                            method: 'POST',-->
+<!--                            headers: {-->
+<!--                                'Content-Type': 'application/json',-->
+<!--                            },-->
+<!--                            body: JSON.stringify({date: date})-->
+<!--                        }).then(response => {-->
+<!--                            if (response.ok) {-->
+<!--                                location.reload(); // 刷新页面更新状态-->
+<!--                            }-->
+<!--                        });-->
+<!--                    };-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</body>
+
+</html>

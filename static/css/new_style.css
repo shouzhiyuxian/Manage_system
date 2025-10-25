@@ -1,0 +1,196 @@
+.main-left {
+            width: 250px;
+            height: 100vh;
+            background: #2a3042;
+            position: fixed;
+            left: 0;
+            top: 0;
+            z-index: 100;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .main-left span {
+            color: #ffffffbd;
+        }
+
+        .sidebar-menu {
+            padding: 20px 15px;
+        }
+
+        .menu-group {
+            margin-bottom: 25px;
+        }
+
+        .menu-group-title {
+            color: #6e768e;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 10px 15px;
+            margin: 15px 0;
+        }
+
+        .menu-item {
+            position: relative;
+            margin: 5px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-link {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            color: #a5b0c5;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .menu-link:hover {
+            background: #3d4354;
+            color: #fff;
+            transform: translateX(5px);
+        }
+
+        .menu-link.active {
+            background: linear-gradient(45deg, #3d4354, #2a3042);
+            color: #00c1a3;
+            border-left: 4px solid #00c1a3;
+        }
+
+        .menu-link i {
+            width: 25px;
+            font-size: 16px;
+            margin-right: 12px;
+        }
+
+        .dropdown-icon {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .has-submenu.active .dropdown-icon {
+            transform: rotate(90deg);
+        }
+
+        .submenu-collapse {
+            padding-left: 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .submenu-item a {
+            display: block;
+            padding: 10px 15px;
+            color: #8692b0;
+            font-size: 14px;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .submenu-item a:hover {
+            background: #343a4d;
+            color: #fff;
+        }
+
+        .highlight {
+            background: linear-gradient(45deg, #00c1a3, #00a3c1);
+            color: #fff !important;
+            box-shadow: 0 3px 12px rgba(0, 193, 163, 0.3);
+        }
+
+        .highlight:hover {
+            transform: scale(1.02) !important;
+        }
+
+        .hot-label {
+            display: inline-flex;
+            align-items: center;
+            border-radius: 20px;
+            background: linear-gradient(45deg, #ff4b2b, #ff416c);
+            color: white;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            box-shadow: 0 3px 6px rgba(255, 65, 108, 0.2);
+            width: 72px;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .main-left {
+                width: 60px;
+            }
+
+            .menu-text, .menu-group-title, .dropdown-icon {
+                display: none;
+            }
+
+            .menu-link {
+                justify-content: center;
+            }
+
+            .menu-link i {
+                margin-right: 0;
+            }
+        }
+
+        .main-right {
+            margin-left: 250px;
+            padding-top: 2rem;
+            min-height: 100vh;
+            background-color: #f8f9fa;
+        }
+
+        .table thead th {
+            background-color: #f1f3fa;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .bi {
+            margin-right: 0.3rem;
+        }
+
+        .relevance-high {
+            color: #67C23A;
+        }
+
+        .relevance-low {
+            color: #F56C6C;
+        }
+
+        .relevance {
+            margin-left: 5px;
+            font-weight: bold;
+        }
+
+        .hot-label {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 1;
+            }
+        }

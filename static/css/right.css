@@ -1,0 +1,19 @@
+.right{
+    width: 84%;
+    display: flex;
+    flex-direction: column;
+}
+
+.header{
+    width: 100%;
+    height: 100px;
+    /*background-image: url("/static/img/header.jpg");*/
+    background-position: center;
+    text-align: center;
+    font-weight: 800;
+    font-size: 42px;
+    padding-top: 10px;
+}
+.breadcrumb{
+    display: flex;
+}

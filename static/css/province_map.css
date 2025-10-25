@@ -1,0 +1,23 @@
+.index_content {
+    display: flex;
+    align-items: flex-start; /* 使内容从顶部对齐 */
+}
+
+#main {
+    margin-right: 20px; /* 给 main 元素和选择框之间一些间距 */
+}
+
+.select-container {
+    display: flex;
+    flex-direction: column; /* 垂直排列选择框 */
+}
+.btn::before{
+    display: none !important;
+}
+.btn{
+    color: white;
+    background-color: #a690f1 ;
+}
+.btn:hover{
+    background-color: #6c757d !important;
+}

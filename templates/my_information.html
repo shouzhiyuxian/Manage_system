@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的信息</title>
+    <!-- CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/right.css">
+    <link rel="stylesheet" href="/static/css/my_information.css">
+    <link rel="stylesheet" href="/static/css/new_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<style>
+    .position-tags {
+        display: inline-flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 5px;
+    }
+
+    .tag {
+        background: #e3f2fd;
+        padding: 4px 12px;
+        border-radius: 15px;
+        font-size: 0.9em;
+        color: #2196f3;
+        border: 1px solid #90caf9;
+    }
+
+    .form-column p {
+        margin-top: 14px;
+    }
+
+</style>
+<div class="main-left">
+    <div class="sidebar-wrapper">
+        <div class="sidebar-menu">
+            {% if isadmin == '1' %}
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/province_map" class="menu-link">
+                        <i class="fas fa-house"></i>
+                        <span class="menu-text">智能看板</span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            {% if isadmin == '1' %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习信息管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/stu_info"
+                                                                                          style="color: #ffffffbd;">实习生信息</a>
+                        </div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/work_info"
+                                                                                          style="color: #ffffffbd;">实习单位信息</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习过程管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/feedback_list"
+                                                                                          style="color: #ffffffbd;">悄悄话</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/signin_record"
+                                                                                          style="color: #ffffffbd;">签到记录</a>
+                        </div>
+                        {% endif %}
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/admin_reports"
+                                                                                          style="color: #ffffffbd;">实习周报审批</a>
+                        </div>
+                        {% else %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/report"
+                                                                                          style="color: #ffffffbd;">实习周报</a>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree"
+                                style="background-color: #2a3042; color: #ffffffbd;">
+                            优秀实习生管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingThree"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_practicer"
+                                                                                          style="color: #ffffffbd;">优秀实习生申请</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a
+                                href="/excellent_stu_application" style="color: #ffffffbd;">优秀实习生审批</a></div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_stu_info"
+                                                                                          style="color: #ffffffbd;">优秀实习生信息</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/my_information" class="menu-link">
+                        <i class="fas fa-user-cog"></i>
+                        <span class="menu-text">个人信息</span>
+                    </a>
+                </div>
+                {% if isadmin == '1' %}
+                <div class="menu-item">
+                    <a href="/college_manage" class="menu-link">
+                        <i class="fas fa-university"></i>
+                        <span class="menu-text">学院管理</span>
+                    </a>
+                </div>
+                {% endif %}
+                {% if isadmin == '0' %}
+                     <div class="menu-item">
+                        <a href="/report" class="menu-link">
+                            <i class="fas fa-map-pin"></i>
+                            <span class="menu-text">实习周报</span>
+                        </a>
+                    </div>
+                {% endif %}
+                <div class="menu-item">
+                    <a href="/sign_in_calendar" class="menu-link highlight">
+                        <i class="fas fa-map-pin"></i>
+                        <span class="menu-text">立即签到</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main right  ps-4 pe-4" style="margin-left: 13%" id="app">
+    <div class="logo text-center mb-4" style="top: 0.5em">
+        <img src="../static/img/logo.png" alt="logo" class="img-fluid" style="max-height: 88px">
+    </div>
+    <div class="header">
+        <span>实习生管理系统</span>
+    </div>
+    <nav class="mb-4" style="margin-top: 2%">
+        <div class="d-flex justify-content-between align-items-center">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/index" class="text-decoration-none">首页</a></li>
+                <li class="breadcrumb-item active">个人信息管理</li>
+            </ol>
+            <div class="user-status d-flex align-items-center flex-nowrap" style="padding-right: 24px;">
+                <span class="text-muted text-nowrap me-2">欢迎，{{ u_name }}！</span>
+                <a href="/login" class="btn btn-sm btn-outline-danger flex-shrink-0">退出系统</a>
+            </div>
+        </div>
+    </nav>
+    <div class="content">
+        <form id="form" method="post">
+            {{ form.csrf_token }}
+            <div class="form-grid">
+                <div class="form-column">
+                    <p>用户名：{{ u_name }}</p>
+                    <p>邮箱: {{ user.email }}</p>
+                    <p>手机号: {{ user.phone }}</p>
+                    <p>年级: {{ user.name.first().grade }}</p>
+                    <p>学院: {{ user.name.first().department_name }}</p>
+                    <p>专业: {{ user.name.first().major_name }}</p>
+                    <p>班级: {{ user.name.first().class_id }}班</p>
+                    <p>实习单位: {% if work_name %}{{ work_name }}{% else %}无{% endif %}</p>
+                </div>
+                <div class="form-column">
+                    <p>实习岗位:
+                        {% if user.name.first and user.name.first.internship_positions %}
+                        {{ user.name.first.internship_positions }}
+                        {% else %}
+                        无
+                    <div class="recommendation">
+                        推荐岗位：
+                        <div class="position-tags">
+                            {% for position in recommend_positions %}
+                            <span class="tag">{{ position }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    </p>
+                    <p>实习地区: {% if work_position %}{{ work_position }}{% else %}无{% endif %}</p>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">性别</label>
+                        <select class="form-select" aria-label="Default select example" name="sex" id="sex">
+                            <option value="男">男</option>
+                            <option value="女">女</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">住址</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" name="address"
+                               {% if user.address %}
+                               value="{{ user.address }}"
+                               {% else %}
+                               value=''
+                               {% endif %}>
+                    </div>
+                    <button type="submit" class="button-primary">保存</button>
+                </div>
+                <div class="card mb-4 shadow-lg border-0"
+                     style="background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);width: 45%;position: absolute;
+                    top: 21%;right: 0">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <i class="fas fa-calendar-check fa-2x text-primary me-3"></i>
+                            <h5 class="card-title mb-0 fw-bold text-uppercase text-secondary">本月考勤统计</h5>
+                        </div>
+
+                        <!-- 进度条 -->
+                        <div class="progress mb-4" style="height: 30px; border-radius: 15px;">
+                            <div class="progress-bar bg-success progress-bar-striped"
+                                 role="progressbar"
+                                 style="width: 85%; font-size: 1.1rem;"
+                                 aria-valuenow="85"
+                                 aria-valuemin="0"
+                                 aria-valuemax="100">
+                                <span class="fw-bold" style="color: #0a0c12;">📊 出勤率 85%</span>
+                            </div>
+                        </div>
+
+                        <!-- 统计详情 -->
+                        <div class="row g-3 text-center">
+                            <div class="col-4">
+                                <div class="p-3 bg-success bg-opacity-10 rounded-3">
+                                    <div class="h2 mb-0 fw-bold text-success" id="normalCount">21</div>
+                                    <small class="text-muted text-uppercase">正常</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="p-3 bg-success bg-opacity-10 rounded-3">
+                                    <div class="h2 mb-0 fw-bold text-success" id="abnormalCount">0</div>
+                                    <small class="text-muted text-uppercase">异常</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="p-3 bg-danger bg-opacity-10 rounded-3">
+                                    <div class="h2 mb-0 fw-bold text-danger" id="absentCount">1</div>
+                                    <small class="text-muted text-uppercase">缺勤</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- 辅助文字 -->
+                        <div class="mt-3 text-end">
+                            <small class="text-muted">
+                                <i class="fas fa-info-circle me-1 update-time"></i>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <style>
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-column {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+
+        .button-primary {
+            margin-top: 1rem;
+        }
+
+    </style>
+
+</div>
+<script src="/static/js/jquery-3.6.0.min.js"></script>
+<script src="/static/js/nav.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/my_information.js"></script>
+<script src="/static/js/vue-2.5.16.js"></script>
+<script src="/static/js/chart.js"></script>
+<!-- jQuery and JavaScript Bundle with Popper -->
+<script
+        async
+        defer
+        src="https://try2.fit2cloud.cn/api/application/embed?protocol=https&host=try2.fit2cloud.cn&token=66d5b4dd18b4e9ee">
+</script>
+
+<script>
+    fetch('/attendance_stats')
+      .then(response => response.json())
+      .then(data => {
+        // 更新进度条
+        document.querySelector('.progress-bar').style.width = `${data.attendance_rate}%`;
+        document.querySelector('.progress-bar span').textContent = `📊 实际出勤率 ${data.attendance_rate}%`;
+
+        // 更新统计数字
+        document.getElementById('normalCount').textContent = data.normal;
+        document.getElementById('abnormalCount').textContent = data.abnormal;
+        document.getElementById('absentCount').textContent = data.absent;
+
+        // 更新数据时间
+        document.querySelector('.update-time').textContent = `数据更新于：${data.update_time}`;
+      });
+
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Vue({
+            el: '#app',  // 对应容器id
+            delimiters: ['[[', ']]'],
+            data: {
+                dimensions: [
+                    { name: '专业技能', key: 'skill' },
+                    { name: '工作态度', key: 'attitude' },
+                    { name: '团队协作', key: 'teamwork' },
+                    { name: '任务完成', key: 'task' },
+                    { name: '创新能力', key: 'innovation' }
+                ],
+                scores: {
+                    skill: null,
+                    attitude: null,
+                    teamwork: null,
+                    task: null,
+                    innovation: null
+                },
+            },
+            mounted() {
+                this.initRadarChart();
+            },
+            methods: {
+                async initRadarChart() {
+                    // 获取数据
+                    const stuId = {{ user.stu_id }};
+                    const response = await fetch(`/api/radar-data/${stuId}`);
+                    const data = await response.json();
+
+                    // 创建雷达图
+                    const ctx = document.getElementById('radarChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: '综合能力评估',
+                                data: data.values,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                                pointBorderColor: '#fff',
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                r: {
+                                    beginAtZero: true,
+                                    max: 5,
+                                    ticks: {
+                                        stepSize: 1
+                                    }
+                                }
+                            },
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+                },
+            }
+        })
+
+    })
+</script>
+</body>
+</html>

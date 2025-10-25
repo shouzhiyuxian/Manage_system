@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>我的实习周报</title>
+    <!-- CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <link rel="stylesheet" href="/static/css/right.css">
+    <link rel="stylesheet" href="/static/css/my_information.css">
+    <link rel="stylesheet" href="/static/css/stu_info.css">
+    <link rel="stylesheet" href="/static/css/new_style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- 引入 autoTable 插件（如果需要表格功能） -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <!--    <script src="/static/js/vue-2.5.16.js"></script>-->
+</head>
+<style>
+    .send::before {
+        content: none;
+    }
+
+    .send {
+        border: none;
+        color: white;
+        background-color: #0d6efd;
+    }
+
+    .send:hover {
+        background-color: #0d6efd;
+        color: white;
+    }
+</style>
+<body>
+<div class="main-left">
+    <div class="sidebar-wrapper">
+        <div class="sidebar-menu">
+            {% if isadmin == '1' %}
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/province_map" class="menu-link">
+                        <i class="fas fa-house"></i>
+                        <span class="menu-text">智能看板</span>
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+            {% if isadmin == '1' %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                aria-controls="flush-collapseOne" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习信息管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/stu_info"
+                                                                                          style="color: #ffffffbd;">实习生信息</a>
+                        </div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/work_info"
+                                                                                          style="color: #ffffffbd;">实习单位信息</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseTwo" aria-expanded="false"
+                                aria-controls="flush-collapseTwo" style="background-color: #2a3042; color: #ffffffbd;">
+                            实习过程管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/feedback_list"
+                                                                                          style="color: #ffffffbd;">悄悄话</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/signin_record"
+                                                                                          style="color: #ffffffbd;">签到记录</a>
+                        </div>
+                        {% endif %}
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/admin_reports"
+                                                                                          style="color: #ffffffbd;">实习周报审批</a>
+                        </div>
+                        {% else %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/report"
+                                                                                          style="color: #ffffffbd;">实习周报</a>
+                        </div>
+                        {% endif %}
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <div class="accordion accordion-flush" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingThree">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapseThree" aria-expanded="false"
+                                aria-controls="flush-collapseThree"
+                                style="background-color: #2a3042; color: #ffffffbd;">
+                            优秀实习生管理
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse"
+                         aria-labelledby="flush-headingThree"
+                         data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_practicer"
+                                                                                          style="color: #ffffffbd;">优秀实习生申请</a>
+                        </div>
+                        {% if isadmin == '1' %}
+                        <div class="accordion-body" style="background-color: #2a3042;"><a
+                                href="/excellent_stu_application" style="color: #ffffffbd;">优秀实习生审批</a></div>
+                        <div class="accordion-body" style="background-color: #2a3042;"><a href="/excellent_stu_info"
+                                                                                          style="color: #ffffffbd;">优秀实习生信息</a>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="menu-group">
+                <div class="menu-item">
+                    <a href="/my_information" class="menu-link">
+                        <i class="fas fa-user-cog"></i>
+                        <span class="menu-text">个人信息</span>
+                    </a>
+                </div>
+                {% if isadmin == '1' %}
+                <div class="menu-item">
+                    <a href="/college_manage" class="menu-link">
+                        <i class="fas fa-university"></i>
+                        <span class="menu-text">学院管理</span>
+                    </a>
+                </div>
+                {% endif %}
+                <div class="menu-item">
+                    <a href="/sign_in_calendar" class="menu-link highlight">
+                        <i class="fas fa-map-pin"></i>
+                        <span class="menu-text">立即签到</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="main right  ps-4 pe-4" style="margin-left: 13%">
+    <div class="logo text-center mb-4" style="top: 0.5em">
+        <img src="../static/img/logo.png" alt="logo" class="img-fluid" style="max-height: 88px">
+    </div>
+    <div class="header">
+        <span>实习生管理系统</span>
+    </div>
+    <nav class="mb-4" style="margin-top: 2%">
+        <div class="d-flex justify-content-between align-items-center">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/index" class="text-decoration-none">首页</a></li>
+                <li class="breadcrumb-item active"><a href="/report" class="text-decoration-none">实习周报</a></li>
+                <li class="breadcrumb-item active">实习周报查看</li>
+            </ol>
+            <div class="user-status d-flex align-items-center flex-nowrap" style="padding-right: 24px;">
+                <span class="text-muted text-nowrap me-2">欢迎，{{ user_name }}！</span>
+                <a href="/login" class="btn btn-sm btn-outline-danger flex-shrink-0">退出系统</a>
+            </div>
+        </div>
+    </nav>
+    <div class="container mt-4" id="app">
+
+        <div class="content-section">
+            <h3>本周主要内容</h3>
+            <pre>{{ report.main_content }}</pre>  <!-- 使用pre保留格式 -->
+        </div>
+
+        <div class="summary-section">
+            <h3>周度总结</h3>
+            <pre>{{ report.summary }}</pre>
+        </div>
+
+        <!-- 每日记录表格 -->
+        <h3>每日工作记录</h3>
+        <table class="table table-bordered">
+            <thead class="thead-light">
+            <tr>
+                <th style="width:15%">日期</th>
+                <th style="width:15%">工作时长</th>
+                <th style="width:20%">工作地点</th>
+                <th>工作内容</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for daily in report.daily_records %}
+            <tr>
+                <td>第 {{ daily.day_number }} 天</td>
+                <td class="work-time-cell">{{ daily.work_time }} 小时</td>
+                <td>{{ daily.location }}</td>
+                <td>
+                    <pre class="daily-content">{{ daily.content }}</pre>
+                </td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- 附件下载 -->
+        {% if report.attachment_path %}
+        <div class="attachment-box mt-3">
+            <h5>附件信息：</h5>
+            <div class="d-flex align-items-center">
+                <i class="bi bi-file-earmark-arrow-down fs-4 me-2"></i>
+                <div>
+                    <div>
+                        <a href="{{ url_for('sdownload_attachment', filename=report.attachment_path) }}"
+                           class="text-decoration-none">
+                            {{ report.attachment_path }}
+                        </a>
+                    </div>
+                    <small class="text-muted">
+                        文件类型: {{ report.attachment_path.split('.')[-1]|upper }}
+                    </small>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        <!-- 在附件下载区块下方添加导出按钮 -->
+        {% if report.attachment_path %}
+        <!-- 原有附件代码... -->
+        {% endif %}
+
+        <!-- 新增导出功能区域 -->
+<!--         <div class="export-section mt-4">-->
+<!--            <button class="btn btn-success" onclick="exportReport()">-->
+<!--                <i class="bi bi-file-earmark-pdf"></i> 导出周报-->
+<!--            </button>-->
+<!--        </div>-->
+
+
+        <!--        <form method="post" action="{{ url_for('submit_score', report_id=report.id) }}">-->
+        <!-- 教师反馈（管理员可编辑） -->
+        <form method="post" onsubmit="handleSubmit(event, {{ report.id }})">
+            <div class="mt-4">
+                <label class="form-label">教师反馈</label>
+                <textarea name="teacher_feedback" class="form-control" rows="3" style="width: 90%" required>
+                    {{ report.teacher_feedback or '' }}
+                </textarea>
+                <small class="text-muted">已输入 [[ feedback.length ]] / 500 字</small>
+            </div>
+
+            <!-- 五个维度评分 -->
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">本周维度评分（1-5分）</h5>
+                    <div v-if="isScored" class="badge bg-warning mt-2">已评分</div>
+                </div>
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4" v-for="(dim, index) in dimensions" :key="index">
+                            <label class="form-label">[[ dim.name ]]</label>
+                            <select
+                                    class="form-select"
+                                    :name="'dim_'+dim.key"
+                                    :disabled="isScored"
+                                    v-model="scores[dim.key]"
+                                    required>
+                                <option v-for="n in 5" :value="n" :selected="scores[dim.key] === n">
+                                    [[ isScored ? '已评' : '请选择' ]] [[ n ]] 分
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 雷达图展示 -->
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">实习画像</h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="radarChart" style="max-height: 400px;"></canvas>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-primary">提交评分</button>
+                </div>
+
+            </div>
+        </form>
+
+        <div v-if="errorMsg" class="alert alert-danger mt-3">
+            [[ errorMsg ]]
+        </div>
+        <!-- 返回导航 -->
+        <hr>
+        <div class="navigation-buttons">
+            {% if isadmin == '1' %}
+            <a href="{{ url_for('admin_reports') }}" class="btn btn-light">返回管理列表</a>
+            {% endif %}
+        </div>
+        <div id="alert-container" style="position: fixed; top: 20px; right: 20px; z-index: 9999"></div>
+    </div>
+</div>
+<script>
+function exportReport() {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4');
+
+    // 导出本周主要内容
+    const mainContent = document.querySelector(".content-section pre").innerText;
+
+    pdf.setFont("helvetica");
+    pdf.setFontSize(12);
+    pdf.text("本周主要内容：", 10, 10);
+    pdf.text(mainContent, 10, 20, { maxWidth: 190 });
+
+    // 导出周度总结
+    const summary = document.querySelector(".summary-section pre").innerText;
+    pdf.text("周度总结：", 10, 60);
+    pdf.text(summary, 10, 70, { maxWidth: 190 });
+
+    // 导出每日工作记录表格
+    const table = document.querySelector(".table");
+    const headers = Array.from(table.querySelectorAll("thead th")).map(th => th.innerText);
+    const rows = Array.from(table.querySelectorAll("tbody tr")).map(tr =>
+        Array.from(tr.querySelectorAll("td")).map(td => td.innerText)
+    );
+
+    pdf.autoTable({
+        startY: 100,
+        head: [headers],
+        body: rows,
+        theme: 'grid',
+        styles: { fontSize: 10 },
+        columnStyles: { 0: { cellWidth: 30 }, 1: { cellWidth: 30 }, 2: { cellWidth: 40 }, 3: { cellWidth: 90 } },
+    });
+
+    // 保存 PDF 文件
+    pdf.save(`实习周报_第{{ report.week_number }}周_{{ report.stu_id }}.pdf`);
+}
+
+</script>
+<script src="/static/js/vue-2.5.16.js"></script>
+<script src="/static/js/bootstrap.bundle.min.js"></script>
+<script src="/static/js/chart.js"></script>
+
+
+<script>
+    document.querySelectorAll('.work-time-cell').forEach(cell => {
+        const [h, m, s] = cell.textContent.split(':');
+        cell.textContent = (parseInt(h) + parseInt(m) / 60).toFixed(2) + ' 小时';
+    });
+</script>
+<script>
+    function showAlert(message, type = 'success') {
+        const alertBox = document.createElement('div');
+        alertBox.style = `padding: 15px; margin-bottom: 10px; border-radius: 4px;
+                     color: ${type === 'error' ? '#721c24' : '#155724'};
+                     background-color: ${type === 'error' ? '#f8d7da' : '#d4edda'};
+                     border: 1px solid ${type === 'error' ? '#f5c6cb' : '#c3e6cb'}`;
+        alertBox.textContent = message;
+
+        const container = document.getElementById('alert-container');
+        container.appendChild(alertBox);
+
+        // 3秒后自动消失
+        setTimeout(() => {
+            container.removeChild(alertBox);
+        }, 3000);
+    }
+
+    // 表单提交处理
+    function handleSubmit(e, reportId) {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+
+        fetch(`/submit-score/${reportId}`, {
+            method: 'POST',
+            body: formData
+        })
+            .then(async response => {
+                const data = await response.json();
+                if (!response.ok) {
+                    throw data; // 抛出错误对象
+                }
+                return data;
+            })
+            .then(data => {
+                showAlert(data.success, 'success');
+                // 可选：成功后刷新数据或重置表单
+                setTimeout(() => {
+                    window.location.reload(); // 如果需要刷新页面
+                }, 1500);
+            })
+            .catch(error => {
+                showAlert(error.error || '操作失败，请重试', 'error');
+            });
+    }
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        new Vue({
+            el: '#app',  // 对应容器id
+            delimiters: ['[[', ']]'],
+            data: {
+                dimensions: [
+                    {name: '专业技能', key: 'skill'},
+                    {name: '工作态度', key: 'attitude'},
+                    {name: '团队协作', key: 'teamwork'},
+                    {name: '任务完成', key: 'task'},
+                    {name: '创新能力', key: 'innovation'}
+                ],
+                scores: {
+                    skill: null,
+                    attitude: null,
+                    teamwork: null,
+                    task: null,
+                    innovation: null
+                },
+                isScored: false,
+                isSubmitting: false,
+                feedback: '{{ report.teacher_feedback or "" }}',
+                errorMsg: '',
+                weekDays: ['星期一', '星期二', '星期三', '星期四', '星期五'],
+
+            },
+
+            mounted() {
+                const report_id = {{  report.id  }}
+                fetch(`/submit-score/${report_id}`)  // 需要实现获取report_id的方法
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.error) return;
+
+                        this.scores = {
+                            skill: data.dim_skill,
+                            attitude: data.dim_attitude,
+                            teamwork: data.dim_teamwork,
+                            task: data.dim_task,
+                            innovation: data.dim_innovation
+                        };
+
+                        if (Object.values(this.scores).some(v => v !== null)) {
+                            this.isScored = true;
+                            this.scoreTime = new Date().toLocaleString(); // 实际应从接口获取
+                        }
+                    });
+                this.initRadarChart();
+            },
+            methods: {
+                async initRadarChart() {
+                    // 获取数据
+                    const stuId = {{ report.stu_id }};
+                    const response = await fetch(`/api/radar-data/${stuId}`);
+                    const data = await response.json();
+
+                    const avgResponse = await fetch('/api/radar-data/average');
+                    const avgData = await avgResponse.json();
+
+                    // 创建雷达图
+                    const ctx = document.getElementById('radarChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'radar',
+                        data: {
+                            labels: data.labels,
+                            datasets: [{
+                                label: '综合能力评估',
+                                data: data.values,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                pointBackgroundColor: 'rgba(54, 162, 235, 1)',
+                                pointBorderColor: '#fff',
+                            },
+                            {
+                                label: '全体学生平均能力',
+                                data: avgData.values,
+                                backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                                borderColor: 'rgba(255, 99, 132, 1)',
+                                pointBackgroundColor: 'rgba(255, 99, 132, 1)',
+                                pointBorderColor: '#fff',
+                            }
+                            ]
+                        },
+                        options: {
+                            scales: {
+                                r: {
+                                    beginAtZero: true,
+                                    max: 5,
+                                    ticks: {
+                                        stepSize: 1
+                                    }
+                                }
+                            },
+                            responsive: true,
+                            maintainAspectRatio: false
+                        }
+                    });
+                },
+                validateForm() {
+                    // 检查评分是否完整
+                    const hasEmptyScore = Object.values(this.scores).some(v => v === '');
+                    if (hasEmptyScore) {
+                        this.errorMsg = '请完成所有维度的评分';
+                        return false;
+                    }
+
+                    // 检查反馈内容
+                    if (this.feedback.trim().length === 0) {
+                        this.errorMsg = '请输入教师反馈内容';
+                        return false;
+                    }
+
+                    if (this.feedback.length > 500) {
+                        this.errorMsg = '反馈内容不得超过500字';
+                        return false;
+                    }
+
+                    return true;
+                },
+                async submitForm() {
+                    this.errorMsg = '';
+                    this.isSubmitting = true;
+
+                    try {
+                        // 前端预验证
+                        if (!this.validateForm()) return;
+
+                        const formData = new FormData();
+
+                        // 添加评分
+                        Object.entries(this.scores).forEach(([key, value]) => {
+                            formData.append(`dim_${key}`, value);
+                        });
+
+                        // 添加反馈
+                        formData.append('teacher_feedback', this.feedback);
+
+                        const response = await fetch(window.location.href, {
+                            method: 'POST',
+                            body: new URLSearchParams(formData),
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded'
+                            }
+                        });
+
+                        if (!response.ok) {
+                            const errorData = await response.json();
+                            throw new Error(errorData.error || '提交失败');
+                        }
+
+                        window.location.href = '/admin_reports';
+                    } catch (err) {
+                        this.errorMsg = err.message;
+                    } finally {
+                        this.isSubmitting = false;
+                    }
+                }
+
+            }
+        })
+
+    })
+</script>
+<script>
+</script>
+</body>
+</html>
