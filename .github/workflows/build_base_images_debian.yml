@@ -1,0 +1,32 @@
+name: Basic Dockerhub CI
+on:
+  push:
+    branches:
+      - 'V1.0'
+    paths:
+      - 'base-images/debian-vnc/docker/**'
+      - '.github/workflows/buid_base_images_debian.yml'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Push to DockerHub
+        uses: docker/build-push-action@v6
+        with:
+          context: base-images/debian-vnc/docker
+          file: base-images/debian-vnc/docker/Dockerfile
+          push: true
+          tags: shouzhiyuxian/jumpserver-vapp-wayland:base-image-latest
+      
+      
+          
