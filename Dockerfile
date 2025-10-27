@@ -27,7 +27,7 @@ COPY api.py .
 COPY model.py .
 COPY form.py .
 COPY settings.py .
-COPY clean.py .
+
 
 # 复制静态文件
 COPY static/ ./static/
