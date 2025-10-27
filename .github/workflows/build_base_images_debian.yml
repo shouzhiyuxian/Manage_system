@@ -1,0 +1,36 @@
+name: Basic Dockerhub CI
+on:
+  push:
+    branches:
+      - 'main'
+    paths:
+      - 'base-images/debian-vnc/docker/**'
+      - '.github/workflows/buid_base_images_debian.yml'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Push to DockerHub
+        uses: docker/build-push-action@v6
+        with:
+          context: base-images/debian-vnc/docker
+          file: base-images/debian-vnc/docker/Dockerfile
+          push: true
+          tags: nickyang00/jumpserver-vapp-wayland:base-image-latest
+      
+      - name: Push to Aliyun
+        run: |
+          echo "${{ secrets.ALIYUN_PASSWORD }}" | docker login --username ${{ secrets.ALIYUN_USERNAME }} ${{ secrets.ALIYUN_REGION }} --password-stdin 
+          docker tag nickyang00/jumpserver-vapp-wayland:base-image-latest ${{ secrets.ALIYUN_REGION }}/fit2cloud_nickyang0_0/jumpserver-vapp-wayland:base-image-latest
+          docker push ${{ secrets.ALIYUN_REGION }}/fit2cloud_nickyang0_0/jumpserver-vapp-wayland:base-image-latest
+          
