@@ -1,11 +1,28 @@
 name: Basic Dockerhub CI
 on:
+  # 自动触发：当推送到V1.0分支时
   push:
     branches:
       - 'V1.0'
     paths:
       - 'base-images/debian-vnc/docker/**'
-      - '.github/workflows/buid_base_images_debian.yml'
+      - '.github/workflows/build_base_images_debian.yml'
+  
+  # 手动触发：可以在GitHub Actions页面手动运行
+  workflow_dispatch:
+    inputs:
+      docker_tag:
+        description: 'Docker标签'
+        required: false
+        default: 'base-image-latest'
+        type: string
+      push_to_dockerhub:
+        description: '是否推送到DockerHub'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+        default: 'true'
 
 jobs:
   build-and-push:
@@ -14,19 +31,43 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set image tag and push flag
+        id: config
+        run: |
+          TAG="${{ inputs.docker_tag }}"
+          if [ -z "$TAG" ]; then
+            TAG="base-image-latest"
+          fi
+          PUSH="${{ inputs.push_to_dockerhub }}"
+          if [ -z "$PUSH" ]; then
+            PUSH="true"
+          fi
+          echo "tag=${TAG}" >> $GITHUB_OUTPUT
+          echo "push=${PUSH}" >> $GITHUB_OUTPUT
+      
       - name: Login to DockerHub
+        if: steps.config.outputs.push == 'true'
         uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       
-      - name: Push to DockerHub
+      - name: Build and Push Docker image
         uses: docker/build-push-action@v6
         with:
           context: base-images/debian-vnc/docker
           file: base-images/debian-vnc/docker/Dockerfile
-          push: true
-          tags: shouzhiyuxian/jumpserver-vapp-wayland:base-image-latest
+          push: ${{ steps.config.outputs.push == 'true' }}
+          tags: shouzhiyuxian/jumpserver-vapp-wayland:${{ steps.config.outputs.tag }}
+      
+      - name: Build summary
+        if: always()
+        run: |
+          echo "================================================"
+          echo "✅ 构建完成！"
+          echo "📦 Docker镜像: shouzhiyuxian/jumpserver-vapp-wayland:${{ steps.config.outputs.tag }}"
+          echo "📤 推送状态: ${{ steps.config.outputs.push }}"
+          echo "================================================"
       
       
           
