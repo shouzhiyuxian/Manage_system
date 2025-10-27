@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 
 # 复制依赖文件并安装Python依赖
 # 注意：这个Dockerfile在子目录中，需要从项目根目录构建
-COPY requirement.txt .
+COPY ../../../../../requirement.txt .
 RUN pip install --no-cache-dir -r requirement.txt
 
 # 复制应用代码
