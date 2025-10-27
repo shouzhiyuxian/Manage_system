@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - SQLALCHEMY_DATABASE_URI=mysql://root:root@db:3306/intern_management
+      - FLASK_APP=app.py
+      - FLASK_ENV=production
+    volumes:
+      - ./uploads:/app/uploads
+      - ./shixi_uploads:/app/shixi_uploads
+    depends_on:
+      - db
+    restart: always
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=intern_management
+      - MYSQL_CHARSET=utf8mb4
+      - MYSQL_COLLATION=utf8mb4_unicode_ci
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./intern_management.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: always
+
+volumes:
+  mysql_data:
+
