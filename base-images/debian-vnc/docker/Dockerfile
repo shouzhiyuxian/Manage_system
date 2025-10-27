@@ -18,7 +18,7 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # 复制依赖文件并安装Python依赖
-COPY ../../../requirement.txt .
+COPY ../../../../requirement.txt .
 RUN pip install --no-cache-dir -r requirement.txt
 
 # 复制应用代码
