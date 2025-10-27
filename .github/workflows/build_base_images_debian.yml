@@ -51,7 +51,7 @@ jobs:
       - name: Build Docker image
         uses: docker/build-push-action@v6
         with:
-          context: base-images/debian-vnc/docker
+          context: .
           file: base-images/debian-vnc/docker/Dockerfile
           push: ${{ steps.set-tag.outputs.push == 'true' || steps.set-tag.outputs.push == '' }}
           tags: shouzhiyuxian/jumpserver-vapp-wayland:${{ steps.set-tag.outputs.tag }}
